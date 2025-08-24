@@ -1,0 +1,314 @@
+/* Used in ProductPageV3.jsx only */
+
+.productpagev3-articles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  background: white;
+  /* margin: 1.5em 0; */
+  min-height: 90%;
+  overflow: scroll;
+}
+
+.productpagev3-article-row {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5em;
+  align-items: center;
+  background: #fafafa;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 0.5em;
+  /* padding: 1em; */
+}
+
+.productpagev3-article-img-col {
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productpagev3-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* border: 2px solid red; */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productpagev3-article-img {
+  width: 80%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.productpagev3-eye-btn {
+  position: absolute !important;
+  top: 0px;
+  right: 0px;
+  background: rgba(255,255,255,0.85) !important;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.productpagev3-article-details {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.productpagev3-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productpagev3-modal-imgwrap {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  padding: 1em;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productpagev3-modal-img {
+  max-width: 70vw;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.productpagev3-modal-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: #e4572e;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 1.5em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Header and title (used in V3) */
+.productpage-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 12px;
+  height: auto;
+}
+.productpage-header-logo {
+  width: 20%;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #f3f4f6;
+  /* border: 2.5px solid #e4572e; */
+  box-shadow: 0 4px 16px rgba(228,87,46,0.12), 0 1.5px 4px rgba(0,0,0,0.08);
+  padding: 4px;
+  margin-top: 6px;
+}
+.productpage-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Instruction line (used in V3) */
+.productpage-instruction {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 1em;
+  color: #e4572e;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+  position: relative;
+  height: 1.5em;
+}
+.productpage-instruction-rotating {
+  display: inline-block;
+  animation: instruction-rotate 7s linear infinite;
+  will-change: transform;
+}
+.productpage-instruction-rotating span {
+  display: block;
+  height: 1.5em;
+  line-height: 1.5em;
+}
+@keyframes instruction-rotate {
+  0%   { transform: translateY(0%); opacity: 1; }
+  40%  { transform: translateY(0%); opacity: 1; }
+  45%  { transform: translateY(-100%); opacity: 0; }
+  55%  { transform: translateY(-100%); opacity: 0; }
+  60%  { transform: translateY(-100%); opacity: 1; }
+  100% { transform: translateY(-100%); opacity: 1; }
+}
+
+/* Footer/description (used in V3) */
+.productpage-footer-v2 {
+  max-width: 480px;
+  margin-top: 1em;
+  box-sizing: border-box;
+  padding: 0em 1em;
+}
+.product-desc{
+    font-size: 0.9rem;
+    /* color: #4B5563; */
+    color: #755f5f;
+    margin: 0.5em 0;
+    padding: 0.21em;
+    font-weight: 500;
+}
+.product-desc-heading{
+     font-size: 1rem;
+    margin: 0.5em 0;
+}
+
+.productpage-article-title {
+  margin: 0px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.productpage-article-row {
+  /* margin-bottom: 8px; */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.2em;
+  /* width: 50%; */
+  /* border:2px solid red; */
+  /* flex-grow: 1; */
+}
+
+.productpage-label {
+  font-weight: 500;
+    color: lab(50.59% -53.46 53.47);
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.productpage-label-mrp{
+  font-weight: 500;
+   color: #C84630;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.productpage-article-row {
+  /* margin-bottom: 8px; */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.2em;
+  /* width: 50%; */
+  /* border:2px solid red; */
+  /* flex-grow: 1; */
+}
+
+
+.productpage-label-generic{
+  font-weight: 500;
+   color: black;
+  /* font-weight: bold; */
+  font-size: 0.8rem;
+}
+
+.productpage-qty-row {
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qty-btn {
+  background: #e4572e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 3px 20px;
+  font-weight: 600;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.qty-value {
+  /* min-width: 32px; */
+  text-align: center;
+  font-size:0.8em;
+  font-weight: 600;
+}
+
+.arrow-imageContainer{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+.productpage-header-details{
+    /* flex: 1; */
+    display: flex;
+    flex-direction: row;
+    gap: 0.8em;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.productpagev3-back-btn {
+  /* background: #fff !important; */
+  /* border: 1.2px solid #e4572e !important; */
+  color: #e4572e !important;
+  margin-top: 4px !important;
+  /* margin-right: 8px !important; */
+  box-shadow: 0 2px 8px rgba(228,87,46,0.08);
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  padding: 2px !important;
+}
+
+/* Add to indexv3.css */
+.productpage-article-sizes-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 2px 0;
+}
+.productpage-article-size-chip {
+  display: inline-block;
+  padding: 3px 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.2em;
+  border: 1px solid #e5e7eb;
+  color: #9a908c;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+
