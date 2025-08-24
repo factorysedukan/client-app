@@ -1,0 +1,38 @@
+.add-product-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px -2px 10px;
+    padding: 1em;
+    height: 80dvh;
+    width: 80dvw;
+    overflow-y: auto;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.add-product-header {
+    position: relative;
+    padding-bottom: 0.5em;
+}
+
+.add-product-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    /* gap: 1em; */
+    margin-bottom: 1em;
+}
+
+.add-product-section {
+    /* margin-bottom: 1em; */
+}
+
+.add-product-footer {
+    padding-top: 0.5em;
+}

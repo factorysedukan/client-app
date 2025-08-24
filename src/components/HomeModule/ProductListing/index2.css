@@ -1,0 +1,98 @@
+.product-listing2-bg {
+  background: #fff;
+  padding: 0em 0;
+}
+
+.product-listing2-scroll {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.product-listing2-flex {
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+}
+
+.product-listing2-card {
+  flex-shrink: 0;
+  width: 96px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: box-shadow 0.2s;
+}
+
+.product-listing2-card:hover {
+  box-shadow: 0 4px 16px rgba(200,70,48,0.12);
+}
+
+.product-listing2-img {
+  width: 50%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  margin-top: 0.5em;
+  border-radius: 10px;
+
+}
+
+.product-listing2-info {
+  padding: 0.25em;
+}
+
+.product-listing2-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.product-listing2-title.one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wide-card {
+  width: 120px; /* Increase width to fit most product names in one line */
+}
+
+@media (min-width: 600px) {
+  .wide-card {
+    width: 140px;
+  }
+}
+
+.product-listing2-desc {
+  font-size: 0.7rem;
+  color: #6b7280;
+  margin: 0.25em 0 0 0;
+}
+
+.product-listing2-price {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #C84630; /* primary color from theme */
+  color: lab(50.59% -53.46 53.47);
+  margin: 0.25em 0 0 0;
+}
+
+.product-listing2-cart-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #e6f9ed;
+  border: 1.2px solid #22c55e;
+  color: #22c55e;
+  border-radius: 16px;
+  padding: 2px 8px 2px 4px;
+  display: flex;
+  align-items: center;
+  font-size: 0.75em;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.08);
+  z-index: 2;
+}

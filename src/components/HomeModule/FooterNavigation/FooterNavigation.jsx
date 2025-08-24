@@ -1,0 +1,79 @@
+import React, { useEffect } from 'react';
+import HomeIcon from '@mui/icons-material/Home';
+import ManIcon from '@mui/icons-material/Man';
+import WomanIcon from '@mui/icons-material/Woman';
+import StrollerIcon from '@mui/icons-material/Stroller';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import Skeleton from '@mui/material/Skeleton';
+import './index.css';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useGetFeatureCategoriesMutation } from '../../../redux/Apis/FeatureCategoryApi';
+import { useSelector } from 'react-redux';
+
+
+const FooterNavigation = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const cartProducts = useSelector(state => state.cart.cartState.products);
+
+  // Call getFeatureCategories API on mount
+  const [getFeatureCategories, { data, isLoading, error }] = useGetFeatureCategoriesMutation();
+
+  useEffect(() => {
+    getFeatureCategories();
+  }, [getFeatureCategories]);
+
+  // Loader skeleton for footer nav
+  if (isLoading) {
+    return (
+      <footer className="footer-nav">
+        <div className="footer-nav-container">
+          {[...Array(5)].map((_, idx) => (
+            <div key={idx} className="footer-link-skeleton">
+              <Skeleton variant="circular" width={28} height={28} />
+              <Skeleton variant="text" width={40} height={12} style={{ marginTop: 4 }} />
+            </div>
+          ))}
+        </div>
+      </footer>
+    );
+  }
+
+  const navItems = [
+    { label: t('Home'), icon: <HomeIcon />, cta: () => { navigate('/') }, active: true },
+    { label: t('Men'), icon: <ManIcon />, cta: () => { navigate(`/CategoryPages?type=Men&&id=${import.meta.env.VITE_APP_JIO_CATEGORY_ID}`) } },
+    { label: t('Ladies'), icon: <WomanIcon />, cta: () => { navigate(`/CategoryPages?type=ladies&&id=${import.meta.env.VITE_APP_JIO_CATEGORY_ID}`) } },
+    { label: t('Kids'), icon: <StrollerIcon />, cta: () => {  navigate(`/CategoryPages?type=kids&&id=${import.meta.env.VITE_APP_JIO_CATEGORY_ID}`) } },
+    { label: t('Orders'), icon: <ReceiptLongIcon />, cta: () => { navigate('/pastOrders') } },
+  ];
+
+  const hasCartProducts = cartProducts && cartProducts.length > 0;
+
+  return (
+    <footer className={`footer-nav${hasCartProducts ? ' cart-active' : ''}`}>
+      <div className={`footer-nav-container${hasCartProducts ? ' nav-shift' : ''}`}>
+        {navItems.map((item) => (
+          <button
+            key={item.label}
+            onClick={item.cta}
+            className={`footer-link${item.active ? ' active' : ''}`}
+          >
+            <span className="footer-icon">{item.icon}</span>
+            <span className="footer-label">{item.label}</span>
+          </button>
+        ))}
+      </div>
+      {hasCartProducts && (
+        <button
+          className="footer-place-order-btn"
+          onClick={() => navigate('/Cart')}
+        >
+          {t('Place Order')}
+        </button>
+      )}
+    </footer>
+  )
+};
+
+export default FooterNavigation;

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Factory Se Dukan</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Amazon+Ember:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Amazon Ember', sans-serif;
+            background-color: #FDF2E3;}
+        .text-brand-red {
+            color: #C84630;}
+        .text-brand-green {
+            color: #2A5B3D;}
+        .bg-brand-red {
+            background-color: #C84630;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50">
+<div class="flex flex-col min-h-screen" id="root">
+<header class="bg-white shadow-md sticky top-0 z-10 p-4">
+<div class="container mx-auto flex justify-between items-center">
+<div class="flex items-center">
+<h1 class="text-2xl font-bold">
+<span class="text-brand-red">FACTORY</span>
+<span class="text-brand-green">से</span>
+<span class="text-brand-red">DUKAN</span>
+</h1>
+</div>
+<div class="flex items-center space-x-4">
+<span class="material-symbols-outlined text-gray-600">
+                        shopping_cart
+                    </span>
+</div>
+</div>
+<div class="mt-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                        search
+                    </span>
+<input class="w-full pl-10 pr-4 py-2 border rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-brand-red" placeholder="Search for products..." type="text"/>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<div class="relative h-48 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCcfdJKIKvKkInQz0PnWfrbpjcEnVS8rRwIXhe4j46V6YNq6QzMFgqjtO2Hlzxj6Uke9jyjm7mhqSsoYN7l5pMGJ_mi7DFDgYaVPLKscIVLW98PqlGqBlhJFJAlXfBbcrmWKjCb4ySBQ2qvt7XF2ZewoSFnXb88sR84E-CjE2JFPw01EQG7DWUkDYEUYTyRvIet7Yw6p7FeQ9hDLbx4vqy52Fnkuv5T1ODc2UIrKcsjV6XPbQRDYTcJZLtJsyADsV9Fr-LAdJv8JPc');">
+<div class="absolute inset-0 bg-black opacity-30"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<h2 class="text-white text-3xl font-bold text-center">Biggest Sale of the Season!</h2>
+</div>
+</div>
+<div class="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<img alt="Red Watch" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpr7dueDg6M_g4HeI21tJ4VZXAXYMg8WA_tOnruV0ZtvqjrTlD9bppcWhdxr0b56AkETnhRWytdRy8Y6PrhkcL_thlTqMDMvwx_T2y1B7le3S4T7Yy_upHHU-O2g7gym3KAwJ_ayb0MwR4FDFdK_j9jitV-WGxcpfwuWkXBhKHOS2U4P-xsL_-Li4ZohPAeeqCFjEqkriTf7mtv3qXRKohBamUoGNrFz6GcUvkQXRwz23pC-oTyhuJZRw_LBW-Xc6VX6TgrJSeCtY"/>
+<div class="p-2 flex-grow flex flex-col">
+<h3 class="text-sm font-semibold text-gray-800">Classic Red Watch</h3>
+<p class="text-xs text-gray-500 mt-1 flex-grow">A timeless piece for any occasion.</p>
+<div class="mt-2">
+<span class="text-xs text-gray-600">Size: Standard</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-lg font-bold text-brand-red">₹1200</p>
+<div class="flex items-center border rounded-md">
+<button class="px-2 py-1 text-sm text-gray-600">-</button>
+<span class="px-2 text-sm">1</span>
+<button class="px-2 py-1 text-sm text-gray-600">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<img alt="Running Shoes" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBia97ppGL9tZhGIMQjy_X5oU_1BSanqRAtBdVS8OVzDDpjo5yghzeqifYk_eA7J_rwFKXdA5KupfYEtCHqa6DJiHknRtE4Eel1tHR5joB6Za_mOu4V4KPEOS4nj50rrzijcBLJqT1LADXk3-bMA8Jv21PdRuLmRVWu7QFXlkk46dQCARWFICBVyUXbHXmz43aevrZPxH8NksfkuaZqz_uoN6rJ0ZNMHvf-ODzNZ_9fWb-FWRiiiOQLSogCrXBfl6tnwzCIkBMQmuc"/>
+<div class="p-2 flex-grow flex flex-col">
+<h3 class="text-sm font-semibold text-gray-800">Sporty Running Shoes</h3>
+<p class="text-xs text-gray-500 mt-1 flex-grow">Comfortable and stylish for your daily run.</p>
+<div class="mt-2">
+<span class="text-xs text-gray-600">Sizes: 7, 8, 9, 10</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-lg font-bold text-brand-red">₹2500</p>
+<div class="flex items-center border rounded-md">
+<button class="px-2 py-1 text-sm text-gray-600">-</button>
+<span class="px-2 text-sm">1</span>
+<button class="px-2 py-1 text-sm text-gray-600">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<img alt="Headphones" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd3vWfOhUpQXSSBoy7kd8hispRWNbSJ2IDuhVxg1hDekwP2OMCvuJ5S1WDcdpgdi2cImvbJsCeVxSD7mBHLHIBrshP85EA-mT5uAogrC23ZqFipsJ7ISi6rY0rX4k7_fOZn8mEiXPeyVvD4TUqJdkr8Gmw0Yb63AI9a_WefzXBprG7RDXy_KmIvaNViPXDJZoKtGE27q6XuC4lYXS2gKXsTCgFZlQIKvdNZEtKKCNBKX-9d2rMsCtzEFcr1ueuIQ_Bpt1gbKw3QHU"/>
+<div class="p-2 flex-grow flex flex-col">
+<h3 class="text-sm font-semibold text-gray-800">Wireless Headphones</h3>
+<p class="text-xs text-gray-500 mt-1 flex-grow">Immersive sound experience, no strings attached.</p>
+<div class="mt-2">
+<span class="text-xs text-gray-600">Size: Adjustable</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-lg font-bold text-brand-red">₹3000</p>
+<div class="flex items-center border rounded-md">
+<button class="px-2 py-1 text-sm text-gray-600">-</button>
+<span class="px-2 text-sm">1</span>
+<button class="px-2 py-1 text-sm text-gray-600">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<img alt="Sunglasses" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfBOVXocTv3f4zOTAUadzmWRfbcB567Qnpq3nh0MGTFWqrUSE3VYyrWlF3Y700w1dvhoKiXhIkw8RDElqWed9y_jjAf3eDExJURSKKRekBnkEaWRxMi8hYzeRrRkM2FRFz2AIkHaphVkC1p5uTZyMYL2OH8n4VmJJnaZRV3vHnOBDT24txN0fweZ40ZnhCYumo1SjZjHE4OKK_ISd-LobyUwk4SEzF5i4FLfJSvjdc5Bgac68a3INxLKEoZT8hEfup32ZWcNRQyM8"/>
+<div class="p-2 flex-grow flex flex-col">
+<h3 class="text-sm font-semibold text-gray-800">Stylish Sunglasses</h3>
+<p class="text-xs text-gray-500 mt-1 flex-grow">Protect your eyes with a trendy look.</p>
+<div class="mt-2">
+<span class="text-xs text-gray-600">Size: One Size</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-lg font-bold text-brand-red">₹800</p>
+<div class="flex items-center border rounded-md">
+<button class="px-2 py-1 text-sm text-gray-600">-</button>
+<span class="px-2 text-sm">1</span>
+<button class="px-2 py-1 text-sm text-gray-600">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<img alt="High Heels" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4bIcNYsgpzTtJBlQ-Si85t2h4yv7JVhAr98BYxVY4zXjbTZ-2jSNs-Vs8uRX6tGLAogo-Cm60wZiXxNLkN5q1VMUUgw1rYAwOB_DL84sOmQSq6AzGOJ23t0f7gGrwUyZWCB0DR62R_BpTRKUHZjWaToxZu58mfwPEtcs6TLXjoyBPLBUSeitxg2fp9-mhzEf0nYHMtSqvMj4sYG-bDu8B-uwpJtyaL6S8f4kNFd_21sqnSBuKF_37p7L8yTgrSGLVbKATdVYaCoM"/>
+<div class="p-2 flex-grow flex flex-col">
+<h3 class="text-sm font-semibold text-gray-800">Elegant High Heels</h3>
+<p class="text-xs text-gray-500 mt-1 flex-grow">Perfect for a night out or a special event.</p>
+<div class="mt-2">
+<span class="text-xs text-gray-600">Sizes: 5, 6, 7, 8</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-lg font-bold text-brand-red">₹2200</p>
+<div class="flex items-center border rounded-md">
+<button class="px-2 py-1 text-sm text-gray-600">-</button>
+<span class="px-2 text-sm">1</span>
+<button class="px-2 py-1 text-sm text-gray-600">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<img alt="T-shirt" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgzI2xK3WnbLtStzvA6DxTHB5AcMWa7VtsHHPOl8YHLk5wYYwmJU-MPDgn6qqskvj1DlwDzhqs8ojwsdx0PJsdfvC5F8ZeuOQ3Pyt5_qJK-sQ-M_D2FOsX1MHqNtceoXjPnkpEQ_vw_JBq2A6UmBALGsAg0Qezy9yqSZL0BRAr8-YkqA1oIEJT5YZjkkXsDWZUi4I49qW0Sla__kGVkjZaJCvOpKjbVu_-VlIadWFhAA8fO1yhLjOxBRwZceA2DmyEVfux21hV4dY"/>
+<div class="p-2 flex-grow flex flex-col">
+<h3 class="text-sm font-semibold text-gray-800">Plain White T-Shirt</h3>
+<p class="text-xs text-gray-500 mt-1 flex-grow">A versatile wardrobe essential.</p>
+<div class="mt-2">
+<span class="text-xs text-gray-600">Sizes: S, M, L, XL</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-lg font-bold text-brand-red">₹500</p>
+<div class="flex items-center border rounded-md">
+<button class="px-2 py-1 text-sm text-gray-600">-</button>
+<span class="px-2 text-sm">1</span>
+<button class="px-2 py-1 text-sm text-gray-600">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<img alt="Brown Shoes" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3R2fclrOf_1bpdZ-N4v-nq-cSwYgLePbY4hvpMFiqMpBO4w1DEVb6usoazyMQOSqbi7dvliqK9CCC9OJF5xuMNQenaXBBzci-itdvFMqGU_7GWB_T_88xQA6dREUCsSmUCh_BYiXRWwzgNnKw-RjOCLsmyvcYDzQk2F1fNP41JN8GJ4EPA4wXaMa2wndPvSmQPliN9kOk5wJCnRJlKpfKB2jDoJ2vCiQuIJkTpWHww8anxTgtjw0IlJ-YqFIhyY38ZhtzeuKG0bE"/>
+<div class="p-2 flex-grow flex flex-col">
+<h3 class="text-sm font-semibold text-gray-800">Formal Brown Shoes</h3>
+<p class="text-xs text-gray-500 mt-1 flex-grow">Look sharp and sophisticated at any formal occasion.</p>
+<div class="mt-2">
+<span class="text-xs text-gray-600">Sizes: 8, 9, 10, 11</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-lg font-bold text-brand-red">₹3500</p>
+<div class="flex items-center border rounded-md">
+<button class="px-2 py-1 text-sm text-gray-600">-</button>
+<span class="px-2 text-sm">1</span>
+<button class="px-2 py-1 text-sm text-gray-600">+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
+<img alt="Perfume" class="w-full h-24 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBePwjPi8RXNUFT0kaAfU_JJAZN4CsswazrUorYQCJKNxnytZ_qgY4xikLj1gaQoq0xWkNNQ--DNDmxCuMbzL_C4BEazubfQ7b8DxDln1FGQfMha2WquURtJbtCHCEqaIkoBga7xY5hFx2sHrhwLLeYYMa1kVoTO97cgd7x_4HtYnqzym1ffo6-S5U8Bi0fwWqouMukpUtYvo1KB4Grg_cx7VUwnbRY15_wyldCVcLBKPsdLAJ0JeLLRk2THFW0DJEVeZ0BBlqIPK8"/>
+<div class="p-2 flex-grow flex flex-col">
+<h3 class="text-sm font-semibold text-gray-800">Luxury Perfume</h3>
+<p class="text-xs text-gray-500 mt-1 flex-grow">An alluring scent for a lasting impression.</p>
+<div class="mt-2">
+<span class="text-xs text-gray-600">Size: 100ml</span>
+</div>
+<div class="flex items-center justify-between mt-2">
+<p class="text-lg font-bold text-brand-red">₹4000</p>
+<div class="flex items-center border rounded-md">
+<button class="px-2 py-1 text-sm text-gray-600">-</button>
+<span class="px-2 text-sm">1</span>
+<button class="px-2 py-1 text-sm text-gray-600">+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="bg-white shadow-t-md sticky bottom-0 z-10 border-t">
+<div class="container mx-auto flex justify-around p-2">
+<a class="flex flex-col items-center text-brand-red" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-xs">Home</span>
+</a>
+<a class="flex flex-col items-center text-gray-600 hover:text-brand-red" href="#">
+<span class="material-symbols-outlined">man</span>
+<span class="text-xs">Men</span>
+</a>
+<a class="flex flex-col items-center text-gray-600 hover:text-brand-red" href="#">
+<span class="material-symbols-outlined">woman</span>
+<span class="text-xs">Women</span>
+</a>
+<a class="flex flex-col items-center text-gray-600 hover:text-brand-red" href="#">
+<span class="material-symbols-outlined">stroller</span>
+<span class="text-xs">Kids</span>
+</a>
+<a class="flex flex-col items-center text-gray-600 hover:text-brand-red" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-xs">Orders</span>
+</a>
+</div>
+</footer>
+</div>
+</body></html>

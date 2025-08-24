@@ -1,0 +1,82 @@
+.card-listing2-bg {
+  background: #fff;
+  padding: 0em 0;
+}
+
+.card-listing2-scroll {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.card-listing2-flex {
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+}
+
+.card-listing2-card {
+  flex-shrink: 0;
+  width: 96px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: box-shadow 0.2s;
+}
+
+.card-listing2-card:hover {
+  box-shadow: 0 4px 16px rgba(200,70,48,0.12);
+}
+
+.card-listing2-img {
+  width: 80%;
+  height: 80%;
+  /* aspect-ratio: 1/1; */
+  object-fit: cover;
+  margin-top: 0.5em;
+  border-radius: 10px;
+
+}
+
+.card-listing2-info {
+  padding: 0.25em;
+}
+
+.card-listing2-title {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.card-listing2-title.one-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wide-card {
+  width: 2em, /* Increase width to fit most card names in one line */
+}
+
+@media (min-width: 600px) {
+  .wide-card {
+    width: 140px;
+  }
+}
+
+.card-listing2-desc {
+  font-size: 0.7rem;
+  color: #6b7280;
+  margin: 0.25em 0 0 0;
+}
+
+.card-listing2-price {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #C84630; /* primary color from theme */
+  margin: 0.25em 0 0 0;
+}
