@@ -3,7 +3,7 @@ import BannerSlider from '../../HomeModule/BannerSlider/BannerSlider';
 import ProductListing2 from '../../HomeModule/ProductListing/ProductListing2';
 import AddProductToCartModel from '../../utility/Models/AddProductToCartModel';
 import { useAddRemoveProductHook } from '../../utility/hooks/addRemovProductHook';
-import './ProductPageStyles.css';
+import './ProductPageStyles2.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { useGetProductByIDMutation } from '../../../redux/Apis/ProductApi';
 import { useGetHomePageTemplateApiQuery } from '../../../redux/Apis/HomePageTemplateApi';

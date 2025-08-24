@@ -115,13 +115,6 @@
   color: #222;
   margin-bottom: 8px;
 }
-
-.productpage-color-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
 .productpage-color-btn {
   width: 32px;
   height: 32px;
@@ -131,6 +124,14 @@
   cursor: pointer;
   transition: border 0.2s;
 }
+
+
+.productpage-color-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
 
 .color-red { background: #c84630; border-color: #c84630; }
 .color-black { background: #222; }
