@@ -136,7 +136,7 @@ const ProductPageV3 = () => {
 
             {/* Articles in rows */}
             <div className="productpagev3-articles-list">
-                <div style={{display:'flex',gap:'0.2em',boxSizing:'border-box',padding:'0.2em',background:'#edebeb',color:'black',padding:'1em',margin:'1em 1em 0em 1em',borderRadius:'20px'}}>
+                <div style={{display:'flex',gap:'0.2em',boxSizing:'border-box',padding:'0.2em',background:'#edebeb',color:'black',margin:'1em 1em 0em 1em',borderRadius:'20px'}}>
                     {/* <h3 className='product-desc-heading'>{t('Description')}</h3> */}
                     <img
                         src={product.logoImage}

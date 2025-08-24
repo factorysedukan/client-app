@@ -87,7 +87,7 @@ const skeletonArray = Array.from({ length: 2 });
   }, [type, id]);
 
   return (
-    <div ref={ref} style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'flex-start', height: '100%', width: '100%', overflowY: 'auto' }}>
+    <div ref={ref} style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'flex-start', height: '100%', overflowY: 'auto' }}>
       <ProductListing1 loading={isLoading && page === 1} data={products} ref={null} />
       {isLoading && page > 1 && (
         <div className="product-listing-grid" >
