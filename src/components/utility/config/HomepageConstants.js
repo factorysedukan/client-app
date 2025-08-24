@@ -4,7 +4,7 @@ import MenShoes from '../../../assets/CardLogos/MenShoes.webp';
 import LadiesShoes from '../../../assets/CardLogos/LadiesShoes.webp';
 import LadiesSandal from '../../../assets/CardLogos/LadiesSandal.webp';
 import LadiesChappal from '../../../assets/CardLogos/LadiesChappal.webp';
-import kidsShoes from '../../../assets/CardLogos/kidsShoes.webp';
+import kidsShoes from '../../../assets/CardLogos/KidsShoes.webp';
 
 
 export const NavigationLinksCards1 = [
