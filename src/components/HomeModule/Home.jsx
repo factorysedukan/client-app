@@ -11,6 +11,7 @@ import Cards1 from './Cards/Cards1';
 import { NavigationLinksCards1 } from '../utility/config/HomepageConstants';
 import { useListProductsApiPaginatedMutation } from '../../redux/Apis/ProductApi';
 import SearchBar from './SearchBar/SearchBar';
+import ProductListing3 from './ProductListing/ProductListing3';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -26,6 +27,11 @@ const [getProducts, { data:productData, isLoading : productDataLoading}] = useLi
             0
         )
     ), 0);
+
+
+
+
+    console.log('HomePageTemplateData', data?.data?.sliders);
 
       const ref = useRef(null)
 const skeletonArray = Array.from({ length: 2 });
@@ -106,11 +112,16 @@ const skeletonArray = Array.from({ length: 2 });
                 Total: <span style={{ color: '#22c55e', marginLeft: 4 }}>₹{formatPrice(totalPrice)}</span>
             </div> */}
            
-            <BannerSlider images={images} aspectRatio={'16/7'}/>
+            <BannerSlider data={data?.data?.sliders} aspectRatio={'16/7'}/>
             <Cards1 data={NavigationLinksCards1}/>
-            <ProductListing1 loading={isLoading} data={data?.data?.[0]?.PrimaryData}/>
-            <ProductListing2 loading={isLoading} data={data?.data?.[0]?.SmallSlider}/>
+             <ProductListing3 loading={productDataLoading && page==1} data={data?.data?.SixCrossSix}/>
+            <ProductListing1 loading={isLoading} data={data?.data?.PrimaryData}/>
+           
+
+            <ProductListing2 loading={isLoading} data={data?.data?.SmallSlider}/>
+
             <ProductListing1 loading={productDataLoading && page==1} data={products}/>
+
              {productDataLoading && page > 1 && (
                     <div className="product-listing-grid" >
                      {skeletonArray.map((_, idx) => (

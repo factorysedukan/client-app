@@ -10,7 +10,7 @@ export const homePageTemplateApi = apiWithTag.injectEndpoints({
     // GET all homepage templates
     getHomePageTemplateApi: builder.query({
       query: () => ({
-        url: `${API_CONFIG.HOMEPAGE_TEMPLATE}`,
+        url: `${API_CONFIG.HOMEPAGE_TEMPLATE}/${import.meta.env.VITE_APP_JIO_HOME_TEMPLATE_ID}`,
         method: "GET",
       }),
       keepUnusedDataFor: 1000, // Keep data for 5 minutes
