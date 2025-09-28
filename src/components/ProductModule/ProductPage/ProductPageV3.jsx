@@ -66,7 +66,7 @@ const ProductPageV3 = () => {
     };
 
     const handleShare = async (id) => {
-        const shareUrl = `${import.meta.env.VITE_APP_JIO_FACTORY_ADMIN_URL}api/v1/productsv2/${id}`;
+        const shareUrl = `${VITE_APP_JIO_FACTORY_ADMIN_URL}api/v1/productsv2/share/${id}`;
 
         if (navigator.share) {
             try {
