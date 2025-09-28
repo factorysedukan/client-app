@@ -65,6 +65,29 @@ const ProductPageV3 = () => {
         setModalImg(null);
     };
 
+    const handleShare = async (id) => {
+        const shareUrl = `${import.meta.env.VITE_APP_JIO_FACTORY_ADMIN_URL}/${id}`;
+
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: product.name,
+                    text: product.description,
+                    url: shareUrl,
+                });
+            } catch (err) {
+                console.error("Error sharing:", err);
+            }
+        } else {
+            // fallback: copy to clipboard
+            navigator.clipboard.writeText(shareUrl);
+            alert("Link copied to clipboard!");
+        }
+    };
+
+
+
+
     const handleGeneralShare = () => {
         if (navigator.share) {
             navigator.share({
@@ -130,7 +153,7 @@ const ProductPageV3 = () => {
         <div className="productpage-bg">
             {/* Header with logo, back button and name */}
             <div className="productpage-header">
-               
+
                 <div className="productpage-header-details">
                     <IconButton
                         className="productpagev3-back-btn"
@@ -147,12 +170,7 @@ const ProductPageV3 = () => {
 
                     {/* WhatsApp Share Button */}
                     <a
-                        href={`https://wa.me/?text=${encodeURIComponent(
-                            `${getLocalized(product.name, product.nameHindi)}\n` +
-                            `Price: ₹${product.minPrice}${product.maxPrice && product.maxPrice !== product.minPrice ? ` - ₹${product.maxPrice}` : ''}\n` +
-                            `${getLocalized(product.description, product.descriptionHindi)}\n` +
-                            `${product.logoImage ? product.logoImage : ''}`
-                        )}`}
+                        href={`http://localhost:4000/api/productv2/share/${product._id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ marginLeft: 12, display: 'flex', alignItems: 'center', textDecoration: 'none' }}
@@ -165,7 +183,7 @@ const ProductPageV3 = () => {
                         />
                     </a>
                     <button
-                        onClick={handleGeneralShare}
+                        onClick={()=>{handleShare(product._id)}}
                         style={{ marginLeft: 12, display: 'flex', alignItems: 'center' }}
                         title="Share"
                     >
@@ -181,14 +199,14 @@ const ProductPageV3 = () => {
 
             {/* Articles in rows */}\
             <div className="productpagev3-articles-list">
-                <div style={{display:'flex',gap:'0.2em',boxSizing:'border-box',padding:'0.2em',background:'#edebeb',color:'black',margin:'1em 1em 0em 1em',borderRadius:'20px'}}>
+                <div style={{ display: 'flex', gap: '0.2em', boxSizing: 'border-box', padding: '0.2em', background: '#edebeb', color: 'black', margin: '1em 1em 0em 1em', borderRadius: '20px' }}>
                     {/* <h3 className='product-desc-heading'>{t('Description')}</h3> */}
                     <img
                         src={product.logoImage}
                         alt={getLocalized(product.name, product.nameHindi)}
                         className="productpage-header-logo"
                     />
-                    
+
                     <p className='product-desc'>{getLocalized(product.description, product.descriptionHindi)}</p>
                 </div>
 
@@ -208,7 +226,7 @@ const ProductPageV3 = () => {
                                     className="productpagev3-eye-btn"
                                     onClick={() => handleOpenModal(article.image)}
                                 >
-                                    <VisibilityIcon size='small'/>
+                                    <VisibilityIcon size='small' />
                                 </IconButton>
                             </div>
                         </div>
@@ -243,7 +261,7 @@ const ProductPageV3 = () => {
                                     onClick={() => handleQtyChange(article, -1)}
                                 >-</button>
                                 <span className="qty-value">
-                                    {getProductQuantity(article._id) ||0 }
+                                    {getProductQuantity(article._id) || 0}
                                 </span>
                                 <button
                                     className="qty-btn"
