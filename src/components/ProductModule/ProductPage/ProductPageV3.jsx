@@ -88,20 +88,6 @@ const ProductPageV3 = () => {
 
 
 
-    const handleGeneralShare = () => {
-        if (navigator.share) {
-            navigator.share({
-                title: getLocalized(product.name, product.nameHindi),
-                text:
-                    `${getLocalized(product.name, product.nameHindi)}\n` +
-                    `Price: ₹${product.minPrice}${product.maxPrice && product.maxPrice !== product.minPrice ? ` - ₹${product.maxPrice}` : ''}\n` +
-                    `${getLocalized(product.description, product.descriptionHindi)}`,
-                url: product.logoImage || window.location.href
-            });
-        } else {
-            alert('Sharing is not supported on this browser.');
-        }
-    };
 
     if (isLoading || !product) {
         return (
@@ -168,23 +154,10 @@ const ProductPageV3 = () => {
                         {getLocalized(product.name, product.nameHindi)}
                     </h1>
 
-                    {/* WhatsApp Share Button */}
-                    <a
-                        href={`http://localhost:4000/api/productv2/share/${product._id}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ marginLeft: 12, display: 'flex', alignItems: 'center', textDecoration: 'none' }}
-                        title="Share on WhatsApp"
-                    >
-                        <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-                            alt="WhatsApp"
-                            style={{ width: 28, height: 28 }}
-                        />
-                    </a>
+                    
                     <button
                         onClick={()=>{handleShare(product._id)}}
-                        style={{ marginLeft: 12, display: 'flex', alignItems: 'center' }}
+                        style={{ marginLeft: 12, display: 'flex', alignItems: 'center',border:'0px solid white',background:'transparent' }}
                         title="Share"
                     >
                         <img
@@ -193,11 +166,23 @@ const ProductPageV3 = () => {
                             style={{ width: 28, height: 28 }}
                         />
                     </button>
+
+                        <button
+                        onClick={()=>{handleShare(product._id)}}
+                        style={{ marginLeft: 12, display: 'flex', alignItems: 'center',border:'0px solid white',background:'transparent' }}
+                        title="Share"
+                    >
+                        <img
+                            src="https://cdn-icons-png.flaticon.com/512/929/929610.png"
+                            alt="Share"
+                            style={{ width: 20, height: 20 }}
+                        />
+                    </button>
                 </div>
             </div>
 
 
-            {/* Articles in rows */}\
+            {/* Articles in rows */}
             <div className="productpagev3-articles-list">
                 <div style={{ display: 'flex', gap: '0.2em', boxSizing: 'border-box', padding: '0.2em', background: '#edebeb', color: 'black', margin: '1em 1em 0em 1em', borderRadius: '20px' }}>
                     {/* <h3 className='product-desc-heading'>{t('Description')}</h3> */}
