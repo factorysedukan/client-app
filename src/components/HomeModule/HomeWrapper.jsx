@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 const HomeWrapper = () => {
   const location = useLocation();
   const hideHeader = location.pathname.includes('search');
+  console.log('hideHeader:', hideHeader);
   const { i18n } = useTranslation();
 
   const handleLanguageChange = (lang) => {

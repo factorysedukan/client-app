@@ -165,7 +165,9 @@ const SearchBarPage = () => {
             <ArrowBackIosNewIcon fontSize="small" sx={{ color: '#e4572e' }} />
           </IconButton>
           <Box className="searchbarpage-logo">
-            <span className="searchbarpage-logo-text logo-red">{t('FACTORY')}</span>
+            {/* <span className="searchbarpage-logo-text logo-red">{t('FACTORY')}</span>
+             */}
+             <img src="/favicon.ico" alt=""  style={{width:'100%'}}/>
           </Box>
           <Box className="searchbarpage-searchbar-wrap">
             <TextField
@@ -234,11 +236,11 @@ const SearchBarPage = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <div className="header-tagline">
+      {/* <div className="header-tagline">
         <Trans i18nKey="BY_SHUBHAM_TRADERS">
           By <span className="tagline-highlight">Shubham Traders</span>
         </Trans>
-      </div>
+      </div> */}
       <Paper
         ref={listRef}
         style={{
