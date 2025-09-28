@@ -312,3 +312,16 @@
   letter-spacing: 0.5px;
 }
 
+@media (min-width: 900px) {
+.productpage-header-logo {
+  width: 10%;
+}
+.productpagev3-article-img {
+  width: 100%;
+}
+
+
+.productpagev3-img-wrap {
+  width: 30%;
+}
+}

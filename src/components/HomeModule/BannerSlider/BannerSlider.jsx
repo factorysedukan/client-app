@@ -1,3 +1,4 @@
+import { useMediaQuery, useTheme } from '@mui/material';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
@@ -16,7 +17,9 @@ const BannerSlider = ({ dots, data,aspectRatio,styleObj}) => {
   };
   console.log('data:', data,aspectRatio,styleObj);
   const navigate = useNavigate();
-
+  const theme = useTheme();
+const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  console.log('sm:', isSmallScreen);
   return (
     // <div style={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0em 0em' }}>
     <div style={{ width: '100%', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0em 0em' }}>

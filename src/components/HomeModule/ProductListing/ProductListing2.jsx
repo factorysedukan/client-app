@@ -64,7 +64,7 @@ const ProductListing2 = ({ loading = false, data = [] }) => {
                 >
                   <img
                     alt={getLocalized(product.name, product.nameHindi)}
-                    className="product-listing2-img"
+                    className="product-listing2-img-2"
                     src={
                       Array.isArray(product.images) && product.images.length > 0
                         ? product.images[0]

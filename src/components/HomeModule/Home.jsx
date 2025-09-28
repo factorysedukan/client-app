@@ -12,6 +12,8 @@ import { NavigationLinksCards1 } from '../utility/config/HomepageConstants';
 import { useListProductsApiPaginatedMutation } from '../../redux/Apis/ProductApi';
 import SearchBar from './SearchBar/SearchBar';
 import ProductListing3 from './ProductListing/ProductListing3';
+import { useMediaQuery, useTheme } from '@mui/material';
+
 
 const Home = () => {
     const navigate = useNavigate();
@@ -27,7 +29,8 @@ const [getProducts, { data:productData, isLoading : productDataLoading}] = useLi
             0
         )
     ), 0);
-
+  const theme = useTheme();
+const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 
 
@@ -112,7 +115,7 @@ const skeletonArray = Array.from({ length: 2 });
                 Total: <span style={{ color: '#22c55e', marginLeft: 4 }}>₹{formatPrice(totalPrice)}</span>
             </div> */}
            
-            <BannerSlider data={data?.data?.sliders} aspectRatio={'16/7'}/>
+            <BannerSlider data={data?.data?.sliders} aspectRatio={isSmallScreen ? '16/7':'4/1'}/>
             <Cards1 data={NavigationLinksCards1}/>
              <ProductListing3 loading={productDataLoading && page==1} data={data?.data?.SixCrossSix}/>
             <ProductListing1 loading={isLoading} data={data?.data?.PrimaryData}/>

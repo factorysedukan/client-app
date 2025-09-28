@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAddRemoveProductHook } from '../../utility/hooks/addRemovProductHook';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 const ProductListing3 = ({ loading = false, data = [] }) => {
     console.log('ProductListing3 data:', data);
@@ -12,7 +13,8 @@ const ProductListing3 = ({ loading = false, data = [] }) => {
   const skeletonArray = Array.from({ length: 6 });
   const products = Array.isArray(data) ? data.slice(0, 6) : [];
   const navigate = useNavigate();
-
+  const theme = useTheme();
+const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const { isProductInCart } = useAddRemoveProductHook();
 
   const handleNavigate = (product) => {
@@ -31,7 +33,7 @@ const ProductListing3 = ({ loading = false, data = [] }) => {
       <div className="product-listing3-collage-grid">
         {loading
           ? skeletonArray.map((_, idx) => (
-              <div key={idx} className="product-listing2-card wide-card">
+              <div key={idx} className="product-listing2-card wide-card-3">
                 <Skeleton
                   variant="rectangular"
                   width={90}
@@ -61,7 +63,7 @@ const ProductListing3 = ({ loading = false, data = [] }) => {
               <div
                 onClick={() => handleNavigate(product)}
                 key={product._id || product.id}
-                className="product-listing3-card wide-card"
+                className="product-listing3-card wide-card-3"
                 style={{ position: 'relative' }}
               >
                 <img
@@ -72,7 +74,7 @@ const ProductListing3 = ({ loading = false, data = [] }) => {
                       ? product.images[0]
                       : product.logoImage || product.image || ''
                   }
-                  style={{ width: 90, height: 90, objectFit: 'cover', borderRadius: 12, marginTop: 8 }}
+                  style={{ aspectRatio:'1/1',width:isSmallScreen? '80%':'50%' ,objectFit: 'cover', borderRadius: 12, marginTop: 8 }}
                 />
                 <div className="product-listing2-info">
                   <h3 className="product-listing2-title one-line">{getLocalized(product.name, product.nameHindi)}</h3>

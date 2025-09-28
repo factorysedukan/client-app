@@ -12,6 +12,7 @@
   display: flex;
   gap: 1em;
   padding: 1em;
+  justify-content: space-between;
 }
 
 .card-listing2-card {
@@ -59,7 +60,8 @@
 }
 
 .wide-card {
-  width: 2em, /* Increase width to fit most card names in one line */
+  width: 30%;
+  /* width: 2em;Increase width to fit most card names in one line */
 }
 
 @media (min-width: 600px) {

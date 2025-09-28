@@ -247,3 +247,10 @@
   min-height: 28px !important;
   padding: 2px !important;
 }
+
+
+@media (min-width: 900px) {
+.orderpage-article-img{
+  width: 50%;
+}
+}
