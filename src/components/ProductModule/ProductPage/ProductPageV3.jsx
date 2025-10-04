@@ -232,6 +232,17 @@ const ProductPageV3 = () => {
                                 <span className="productpage-label">{t('Price')}: ₹{article.sellingPrice}</span>
                                 <span className="productpage-label-mrp">{t('MRP')}: ₹{article.mrp}</span>
                             </div>
+                            <p className="productpage-label-mrp" style={{ color: '#22c55e', fontWeight: 600, margin: '0px 0 0 0',color: 'rgb(135 2 2)',fontSize:'1em' }}>
+                                {(() => {
+                                    const price = article?.sellingPrice;
+                                    const mrp = article?.mrp;
+                                    if (price && mrp) {
+                                        const margin = ((mrp - price) / mrp) * 100;
+                                        return `Margin: ${margin.toFixed(1)}%`;
+                                    }
+                                    return "Margin: --";
+                                })()}
+                            </p>
                             {/* Sizes chips */}
                             <div className="productpage-article-sizes-row">
                                 <span className="productpage-label-generic">{t('Size')}:</span>
