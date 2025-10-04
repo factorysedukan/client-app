@@ -82,6 +82,7 @@ const SearchBarPage = () => {
 
   const handleSelect = (item) => {
     setQuery(item.name);
+    sessionStorage.setItem('searchQuery', item.name); // Save selected value to sessionStorage
     setShowSuggestions(false);
     setResults([item]);
     inputRef.current?.blur();
@@ -145,7 +146,6 @@ const SearchBarPage = () => {
   useEffect(() => {
     function handleClickOutside(event) {
       if (
-        inputRef.current &&
         !inputRef.current.contains(event.target) &&
         !document.querySelector('.searchbarpage-suggestions')?.contains(event.target)
       ) {
