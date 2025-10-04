@@ -143,7 +143,15 @@ const ProductPageV3 = () => {
                 <div className="productpage-header-details">
                     <IconButton
                         className="productpagev3-back-btn"
-                        onClick={() => navigate(-1)}
+                        onClick={() =>{
+                            console.log(window.history);
+                            if (window.history.length > 2) {
+                            navigate(-1);
+                        } else {
+                            navigate('/');
+                        }
+                    }
+                        }
                         size="small"
                         style={{ fontSize: '1.1rem', padding: 4 }}
                     >
@@ -154,10 +162,10 @@ const ProductPageV3 = () => {
                         {getLocalized(product.name, product.nameHindi)}
                     </h1>
 
-                    
+
                     <button
-                        onClick={()=>{handleShare(product._id)}}
-                        style={{ marginLeft: 12, display: 'flex', alignItems: 'center',border:'0px solid white',background:'transparent' }}
+                        onClick={() => { handleShare(product._id) }}
+                        style={{ marginLeft: 12, display: 'flex', alignItems: 'center', border: '0px solid white', background: 'transparent' }}
                         title="Share"
                     >
                         <img
@@ -167,9 +175,9 @@ const ProductPageV3 = () => {
                         />
                     </button>
 
-                        <button
-                        onClick={()=>{handleShare(product._id)}}
-                        style={{ marginLeft: 12, display: 'flex', alignItems: 'center',border:'0px solid white',background:'transparent' }}
+                    <button
+                        onClick={() => { handleShare(product._id) }}
+                        style={{ marginLeft: 12, display: 'flex', alignItems: 'center', border: '0px solid white', background: 'transparent' }}
                         title="Share"
                     >
                         <img
@@ -263,7 +271,7 @@ const ProductPageV3 = () => {
                         <h2 className="productpage-section-title">{t('Other Products')}</h2>
                         <ProductListing2
                             loading={isHomeLoading}
-                            data={homeTemplateData?.data?.[0]?.SmallSlider}
+                            data={homeTemplateData?.data?.SmallSlider}
                         />
                     </div>
                 </div>

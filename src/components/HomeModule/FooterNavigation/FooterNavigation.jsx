@@ -6,7 +6,7 @@ import StrollerIcon from '@mui/icons-material/Stroller';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import Skeleton from '@mui/material/Skeleton';
 import './index.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useGetFeatureCategoriesMutation } from '../../../redux/Apis/FeatureCategoryApi';
 import { useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ const FooterNavigation = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const cartProducts = useSelector(state => state.cart.cartState.products);
-
+  const path=useLocation().pathname;
   // Call getFeatureCategories API on mount
   const [getFeatureCategories, { data, isLoading, error }] = useGetFeatureCategoriesMutation();
 
@@ -39,6 +39,8 @@ const FooterNavigation = () => {
       </footer>
     );
   }
+
+  console.log('path:', path.toLowerCase());
 
   const navItems = [
     { label: t('Home'), icon: <HomeIcon />, cta: () => { navigate('/') }, active: true },
@@ -64,7 +66,7 @@ const FooterNavigation = () => {
           </button>
         ))}
       </div>
-      {hasCartProducts && (
+      {hasCartProducts && (path.toLowerCase()!='/cart')&& (
         <button
           className="footer-place-order-btn"
           onClick={() => navigate('/Cart')}

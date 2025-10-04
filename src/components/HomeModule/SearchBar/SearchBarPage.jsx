@@ -27,7 +27,7 @@ function useDebouncedCallback(callback, delay) {
 const SearchBarPage = () => {
       const { t } = useTranslation();
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(() => sessionStorage.getItem('searchQuery') || '');
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchProductV2, { isLoading }] = useSearchProductV2Mutation();
   const [results, setResults] = useState([]);
@@ -60,6 +60,7 @@ const SearchBarPage = () => {
   const handleChange = (e) => {
     const val = e.target.value;
     setQuery(val);
+    sessionStorage.setItem('searchQuery', val); // Save to sessionStorage
     setShowSuggestions(true);
     setPage(1);
     debouncedSearch(val, 1);
@@ -71,6 +72,7 @@ const SearchBarPage = () => {
 
   const handleClear = () => {
     setQuery('');
+    sessionStorage.removeItem('searchQuery'); // Remove from sessionStorage
     setShowSuggestions(false);
     setResults([]);
     setPage(1);
@@ -125,6 +127,12 @@ const SearchBarPage = () => {
     // eslint-disable-next-line
   }, [page]);
 
+  useEffect(()=>{
+    if(sessionStorage.getItem('searchQuery')){
+        debouncedSearch(sessionStorage.getItem('searchQuery'), 1);
+    }
+  },[])
+
   // Suggestions for dropdown
   const suggestions = query
     ? results.filter(item =>
@@ -164,11 +172,7 @@ const SearchBarPage = () => {
           <IconButton onClick={() => navigate(-1)} className="searchbarpage-back-btn">
             <ArrowBackIosNewIcon fontSize="small" sx={{ color: '#e4572e' }} />
           </IconButton>
-          <Box className="searchbarpage-logo">
-            {/* <span className="searchbarpage-logo-text logo-red">{t('FACTORY')}</span>
-             */}
-             <img src="/favicon.ico" alt=""  style={{width:'100%'}}/>
-          </Box>
+        
           <Box className="searchbarpage-searchbar-wrap">
             <TextField
               inputRef={inputRef}

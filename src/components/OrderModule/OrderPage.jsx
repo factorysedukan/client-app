@@ -59,6 +59,7 @@ const OrderPage = () => {
     const MIN_ORDER_VALUE = 2000;
 
     return (
+        <>
         <div className="orderpage-bg">
             <div className="orderpage-heading-row">
                 <div style={{display: 'flex', alignItems: 'center',justifyContent:'center'}}>
@@ -108,7 +109,7 @@ const OrderPage = () => {
                                             <h2 className="orderpage-product-title">
                                                 {i18n.language === 'hi' && product.nameHindi ? product.nameHindi : product.name}
                                             </h2>
-                                            <p className="orderpage-product-desc">{product.description || ''}</p>
+                                            {/* <p className="orderpage-product-desc">{product.description || ''}</p> */}
                                         </div>
                                     </div>
                                     <div className="orderpage-articles-list">
@@ -158,7 +159,7 @@ const OrderPage = () => {
                     </div>
                 </>
             )}
-            <div>
+            {/* <div>
                 <button
                     style={{
                         margin: '16px auto 0 auto',
@@ -201,8 +202,86 @@ const OrderPage = () => {
                     }}
                     total={totalPrice}
                 />
-            </div>
+            </div> */}
+        
         </div>
+            <div
+                className="orderpage-sticky-footer"
+                style={{
+                    position: 'sticky',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    width: '100%',
+                    background: '#fff',
+                    boxShadow: '0 -2px 12px rgba(0,0,0,0.07)',
+                    boxSizing: 'border-box',
+                    zIndex: 10,
+                    padding: '10px 0 8px 0',
+                    marginTop: 24,
+                    // border:'2px solid red'
+                }}
+            >
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 8,
+                }}>
+                    <div style={{
+                        fontWeight: 700,
+                        fontSize: '1.15em',
+                        color: '#222',
+                        marginBottom: 4,
+                    }}>
+                        {t('Total')}: <span className="orderpage-totalprice-value">₹{formatPrice(totalPrice)}</span>
+                    </div>
+                    {totalPrice < MIN_ORDER_VALUE && (
+                        <div style={{
+                            color: '#e4572e',
+                            fontWeight: 600,
+                            textAlign: 'center',
+                            fontSize: '1.05em',
+                            margin: 4,
+                        }}>
+                            {i18n.language === 'hi'
+                                ? "ऑर्डर प्लेस करने के लिए कम से कम 2000 का माल लें"
+                                : "To place an order, minimum order value should be ₹2000"}
+                        </div>
+                    )}
+                    <button
+                        style={{
+                            background: totalPrice >= MIN_ORDER_VALUE ? '#e4572e' : '#ccc',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: 12,
+                            padding: '12px 32px',
+                            fontWeight: 700,
+                            fontSize: '1.1em',
+                            cursor: totalPrice >= MIN_ORDER_VALUE ? 'pointer' : 'not-allowed',
+                            width: '90%',
+                            maxWidth: 320,
+                            margin: '0 auto'
+                        }}
+                        onClick={() => {
+                            if (totalPrice >= MIN_ORDER_VALUE) setShowModal(true);
+                        }}
+                        disabled={totalPrice < MIN_ORDER_VALUE}
+                    >
+                        {t('CONFIRM_ORDER')}
+                    </button>
+                    <ConfirmOrderModal
+                        open={showModal}
+                        onClose={() => setShowModal(false)}
+                        onConfirm={(fields) => {
+                            // handle order confirm logic here
+                            // setShowModal(false);
+                        }}
+                        total={totalPrice}
+                    />
+                </div>
+            </div>
+            </>
     );
 };
 

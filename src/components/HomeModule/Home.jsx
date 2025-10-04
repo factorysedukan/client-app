@@ -117,11 +117,11 @@ const skeletonArray = Array.from({ length: 2 });
            
             <BannerSlider data={data?.data?.sliders} aspectRatio={isSmallScreen ? '16/7':'4/1'}/>
             <Cards1 data={NavigationLinksCards1}/>
-             <ProductListing3 loading={productDataLoading && page==1} data={data?.data?.SixCrossSix}/>
+             {/* <ProductListing3 loading={productDataLoading && page==1} data={data?.data?.SixCrossSix}/> */}
             <ProductListing1 loading={isLoading} data={data?.data?.PrimaryData}/>
            
 
-            <ProductListing2 loading={isLoading} data={data?.data?.SmallSlider}/>
+            {/* <ProductListing2 loading={isLoading} data={data?.data?.SmallSlider}/> */}
 
             <ProductListing1 loading={productDataLoading && page==1} data={products}/>
 

@@ -24,7 +24,7 @@ const HomeWrapper = () => {
         <div
           style={{
             position: 'fixed',
-            top: 60,
+            bottom: 100,
             right: 1,
             zIndex: 9999,
             background: 'rgba(255,255,255,0.7)',

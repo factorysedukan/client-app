@@ -17,20 +17,6 @@ const ProductListing1 = forwardRef(({ loading = false, data = [] }, ref) => {
   const { isProductInCart } = useAddRemoveProductHook();
   const cartProducts = useSelector(state => state.cart.cartState.products);
 
-
-  // Quantity state for each product
-  // const [quantities, setQuantities] = useState({});
-
-  // const handleChange = (id, delta) => {
-  //   setQuantities(q => ({
-  //     ...q,
-  //     [id]: Math.max(1, (q[id] || 1) + delta)
-  //   }));
-  // };
-
-  
-
-
   const navigate = useNavigate();
 
   const handleNavigate = (product) => {
@@ -91,14 +77,6 @@ const ProductListing1 = forwardRef(({ loading = false, data = [] }, ref) => {
                   return words.length > 5 ? words.slice(0, 5).join(' ') + '...' : desc;
                 })()}
               </p>
-              {/* <div className="product-size">
-                <span>
-                  {t('Size')}: {Array.isArray(product.sizes) && product.sizes.length > 0
-                    ? product.sizes.join(', ')
-                    : product.size || '--'}
-                </span>
-              </div> */}
-              {/* Add colors below size, without color name */}
               {Array.isArray(product.colors) && product.colors.length > 0 && (
                 <div className="product-colors-row">
                   <span className='product-color-label'>
@@ -124,9 +102,29 @@ const ProductListing1 = forwardRef(({ loading = false, data = [] }, ref) => {
                 </div>
               )}
               <div className="product-action-row">
-                <p className="product-price">{product?.minPrice==product?.maxPrice ? `₹${product?.minPrice ? product?.minPrice :"--"}` : `₹${product?.minPrice}-₹${product?.maxPrice}`}</p>
-                <p className="product-price-MRP">MRP: {product?.minMrp==product?.maxMrp ? `₹${product?.minMrp ? product?.minMrp :"--"}` : `₹${product?.minMrp}-₹${product?.maxMrp}`}</p>
-
+                <p className="product-price">
+                  {product?.minPrice == product?.maxPrice
+                    ? `₹${product?.minPrice ? product?.minPrice : "--"}`
+                    : `₹${product?.minPrice}-₹${product?.maxPrice}`}
+                </p>
+                <p className="product-price-MRP">
+                  MRP: {product?.minMrp == product?.maxMrp
+                    ? `₹${product?.minMrp ? product?.minMrp : "--"}`
+                    : `₹${product?.minMrp}-₹${product?.maxMrp}`}
+                </p>
+                <p className="product-price-MRP" style={{ color: 'rgb(135 2 2)', fontWeight: 600,fontSize:'1em' }}>
+                  {(() => {
+                    const minMargin = product?.minMrp && product?.minPrice ? ((product.minMrp - product.minPrice) / product.minMrp) * 100 : null;
+                    const maxMargin = product?.maxMrp && product?.maxPrice ? ((product.maxMrp - product.maxPrice) / product.maxMrp) * 100 : null;
+                    if (minMargin !== null && maxMargin !== null) {
+                      return minMargin === maxMargin
+                        ? `Margin: ${minMargin.toFixed(1)}%`
+                        : `Margin: ${minMargin.toFixed(1)}% - ${maxMargin.toFixed(1)}%`;
+                    } else {
+                      return "Margin: --";
+                    }
+                  })()}
+                </p>
                 <div className="product-qty" >
                   {isProductInCart(product._id || product.id) == 0 ? (
                     <button className="buy-now-btn" onClick={(e) => {
@@ -144,7 +142,7 @@ const ProductListing1 = forwardRef(({ loading = false, data = [] }, ref) => {
                       // setOpenCartModel(true);
                       // setSelectedProduct(product);
                     }}>
-                      {t('Edit Qty')}
+                      {t('Change Quantity')}
                     </button>
                   )}
                 </div>

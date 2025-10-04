@@ -52,9 +52,11 @@
 }
 
 .product-listing2-title.one-line {
-  white-space: nowrap;
-  overflow: hidden;
+    overflow: hidden;
   text-overflow: ellipsis;
+  /* Remove white-space: nowrap; to allow wrapping */
+  display: block;
+  word-break: break-word;
 }
 
 .wide-card {
