@@ -65,7 +65,7 @@ const OffersCoupon = ({ totalPrice, i18n }) => {
               border: '2px dashed #e4572e',
               borderRadius: 18,
               boxShadow: '0 2px 8px rgba(228,87,46,0.07)',
-              padding: '16px 24px',
+              padding: '5px 24px',
               minWidth: 180,
               display: 'flex',
               alignItems: 'center',
@@ -95,10 +95,10 @@ const OffersCoupon = ({ totalPrice, i18n }) => {
               style={{ width: 48, height: 48, objectFit: 'contain', marginRight: 8 }}
             />
             <div>
-              <div style={{ fontWeight: 700, color: '#e4572e', fontSize: '1.1em' }}>
+              <div style={{ fontWeight: 700, color: '#e4572e', fontSize: '0.8em' }}>
                 {offer.name}
               </div>
-              <div style={{ color: '#333', fontSize: '0.95em' }}>
+              <div style={{ color: '#333', fontSize: '0.8em' }}>
                 {offer.nameHindi}
               </div>
             </div>
