@@ -59,3 +59,25 @@ GET_PRODUCTS_BY_FILTER_CATEGORY_VALUE: "api/v1/productsv2/filterCategory/", // +
     FACTORY: "api/v1/factory", // <-- Added for factory APIs
 
 }
+
+
+export const Offers = [
+  {
+    name: 'Free bag on order above 2000',
+    nameHindi: '2000 से ऊपर के ऑर्डर पर फ्री बैग',
+    image: '',
+    price:2000
+  },
+  {
+    name: 'Free speaker on order above 25000',
+    nameHindi: '25000 से ऊपर के ऑर्डर पर फ्री स्पीकर',
+    image: '',
+    price:25000
+  },
+  {
+    name: 'Free smart watch on order above 50000',
+    nameHindi: '5000 से ऊपर के ऑर्डर पर फ्री स्मार्ट वॉच',
+    image: '50000',
+    price:50000
+  }
+];

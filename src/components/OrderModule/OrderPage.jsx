@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import { useNavigate } from 'react-router-dom';
 import './OrderPageStyles.css';
 import ConfirmOrderModal from '../Cart/ConfirmOrderModal';
+import OffersCoupon from '../Offers/OffersCoupon'; // <-- Import the OffersCoupon component
 
 const OrderPage = () => {
     const { t, i18n } = useTranslation();
@@ -94,9 +95,25 @@ const OrderPage = () => {
                 ) : (
                     <>
                         <div className="orderpage-list">
+                            <OffersCoupon totalPrice={totalPrice} i18n={i18n} />
+                            {/* Heading below offers and above product list */}
+                            <div
+                                style={{
+                                    fontWeight: 600,
+                                    fontSize: '1.2rem',
+                                    color: '#222',
+                                    textAlign: 'start',
+                                    margin: '12px 0 0 0'
+                                }}
+                            >
+                                {i18n.language === 'hi'
+                                    ? 'आपका चुना हुआ माल'
+                                    : 'Products in your cart'}
+                            </div>
                             {cartProducts.length === 0 ? (
                                 <div className="orderpage-empty">{t('No products in cart')}</div>
                             ) : (
+
                                 cartProducts.map(product => (
                                     <div key={product._id} className="orderpage-product-card animate-pop">
                                         <div className="orderpage-product-header">
@@ -158,6 +175,7 @@ const OrderPage = () => {
                                 ))
                             )}
                         </div>
+                        
                         <div className="orderpage-totalprice-bottom animate-pop">
                             {t('Total')}: <span className="orderpage-totalprice-value">₹{formatPrice(totalPrice)}</span>
                         </div>
