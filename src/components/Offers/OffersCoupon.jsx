@@ -2,25 +2,21 @@ import React from 'react';
 import { Offers } from '../../services/constants';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // <-- Import tick icon
 
-const offerImages = {
-  bag: '/assets/bag.png', // Replace with actual image paths
-  speaker: '/assets/speaker.png',
-  watch: '/assets/watch.png',
-};
+
 
 function getOfferCounts(totalPrice) {
   let offers = [];
   // Bag: One for each order above 2500
   if (totalPrice >= 2500) {
-    offers.push({ ...Offers[0], qty: 1, img: offerImages.bag });
+    offers.push({ ...Offers[0], qty: 1,});
   }
   // Speaker: One for order above 25000 up to 50000
   if (totalPrice >= 25000 && totalPrice < 50000) {
-    offers.push({ ...Offers[1], qty: 1, img: offerImages.speaker });
+    offers.push({ ...Offers[1], qty: 1,});
   }
   // Watch: One for order above 50000
   if (totalPrice >= 50000) {
-    offers.push({ ...Offers[2], qty: 1, img: offerImages.watch });
+    offers.push({ ...Offers[2], qty: 1 });
   }
   return offers;
 }
@@ -90,7 +86,7 @@ const OffersCoupon = ({ totalPrice, i18n }) => {
               }}
             />
             <img
-              src={offer.img}
+              src={offer.image}
               alt={offer.name}
               style={{ width: 48, height: 48, objectFit: 'contain', marginRight: 8 }}
             />
