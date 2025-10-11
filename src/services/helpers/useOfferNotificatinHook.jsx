@@ -22,7 +22,7 @@ export const useOfferNotificationHook = () => {
             timerEvent = setTimeout(() => {
                 setCallNotification(true)
                 setCallCounts(callCounts + 1)
-                setTimer(60000*5)
+                setTimer(60000)
             }, timer);
         }
 
@@ -34,7 +34,7 @@ export const useOfferNotificationHook = () => {
         if(callNotification){
             setTimeout(() => {
                 setCallNotification(false)
-            }, 30000);
+            }, 10000);
         }
     },[callNotification])
 
@@ -45,10 +45,12 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+//   width: 400,
 //   bgcolor: 'background.paper',
 //   border: '2px solid #000',
   boxShadow: 24,
+     width:'80dvw',
+     border:'0px solid #000',
 //   p: 4,
 };
     const NotificationsJSX = ()=>{
@@ -77,6 +79,7 @@ const style = {
       zIndex: 2,
       lineHeight: 1,
       padding: 0,
+   
     }}
     aria-label="Close"
    
