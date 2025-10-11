@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import Header from './Header/Header'
 import FooterNavigation from './FooterNavigation/FooterNavigation'
 import { useTranslation } from 'react-i18next';
+import { useOfferNotificationHook } from '../../services/helpers/useOfferNotificatinHook';
 
 const HomeWrapper = () => {
   const location = useLocation();
@@ -13,7 +14,7 @@ const HomeWrapper = () => {
   const handleLanguageChange = (lang) => {
     i18n.changeLanguage(lang);
   };
-
+  const {NotificationsJSX} =useOfferNotificationHook()
   return (
     <div style={{width: '100vw', height: '100dvh', overflow:'hidden',display:'flex',flexDirection:'column',justifyContent:'space-between', position: 'relative'}}>
       {!hideHeader && <Header />}
@@ -79,6 +80,7 @@ const HomeWrapper = () => {
         </div>
       </div>
       <FooterNavigation/>
+      {<NotificationsJSX/>}
     </div>
   )
 }

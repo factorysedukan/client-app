@@ -13,6 +13,8 @@ import { useListProductsApiPaginatedMutation } from '../../redux/Apis/ProductApi
 import SearchBar from './SearchBar/SearchBar';
 import ProductListing3 from './ProductListing/ProductListing3';
 import { useMediaQuery, useTheme } from '@mui/material';
+import { useGetAllFactoriesQuery } from '../../redux/Apis/FactoryApi';
+import FactoryListing from './FactoryListing/FactoryListing';
 
 
 const Home = () => {
@@ -47,7 +49,7 @@ const skeletonArray = Array.from({ length: 2 });
         'https://res.cloudinary.com/dd57quwk7/image/upload/v1752318632/factorySeDukanSlider/ChatGPT_Image_Jul_12_2025_04_31_32_PM_bs1anm.png'
     ]
 
-
+const { data: factoriesData, isLoading: factoriesLoading, error: factoriesError } = useGetAllFactoriesQuery();
 
      useEffect(() => {
  
@@ -64,6 +66,12 @@ const skeletonArray = Array.from({ length: 2 });
         // eslint-disable-next-line
       }, [page]);
 
+useEffect(() => {
+  if (factoriesData) {
+    console.log('All Factories:', factoriesData);
+    // You can set state or use factoriesData as needed
+  }
+}, [factoriesData]);
 
       const handleScroll = () => {
         
@@ -117,6 +125,7 @@ const skeletonArray = Array.from({ length: 2 });
            
             <BannerSlider data={data?.data?.sliders} aspectRatio={isSmallScreen ? '16/7':'4/1'}/>
             <Cards1 data={NavigationLinksCards1}/>
+            <FactoryListing loading={factoriesLoading} data={factoriesData?.data}/>
              {/* <ProductListing3 loading={productDataLoading && page==1} data={data?.data?.SixCrossSix}/> */}
             <ProductListing1 loading={isLoading} data={data?.data?.PrimaryData}/>
            

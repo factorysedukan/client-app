@@ -1,77 +1,74 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ProductListing1 from '../../ProductListing/ProductListing1';
 import { useGetProductsByFilterCategoryValueMutation } from '../../../../redux/Apis/ProductApi';
-import { Skeleton } from '@mui/material';
+import { useGetFactoryProductsByIdMutation } from '../../../../redux/Apis/FactoryApi'; // <-- Import your factory API hook
+import { Skeleton, IconButton } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const CategoryPages = () => {
   const { search } = useLocation();
+  const navigate = useNavigate();
   const params = new URLSearchParams(search);
   const type = params.get('type');
   const id = params.get('id');
   const strict = params.get('strict') === 'true';
-  const ref = useRef(null)
-  console.log('Type:', type, 'ID:', id);
-const skeletonArray = Array.from({ length: 2 });
+  const ref = useRef(null);
+  const skeletonArray = Array.from({ length: 2 });
+  console.log('type',type)
   // Pagination state
   const [page, setPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
-  // API hook
-  const [getProducts, { data, isLoading }] = useGetProductsByFilterCategoryValueMutation();
+  // API hooks
+  const [getProducts, { isLoading }] = useGetProductsByFilterCategoryValueMutation();
+  const [getFactory,{ data: factoryData, isLoading: factoryLoading }] = useGetFactoryProductsByIdMutation();
 
   // Fetch products on mount and when page/type/id changes
   useEffect(() => {
     if (!id || !type) return;
-    getProducts({ filterCategoryId: id, value: type, strict: strict, page, limit: 10 })
-      .unwrap()
-      .then(res => {
-        if (page === 1) {
-          setProducts(res.data || []);
-        } else {
-          setProducts(prev => [...prev, ...(res.data || [])]);
-        }
-        setHasMore((res.data?.length || 0) === 10);
-      });
+    if (type === 'factory') {
+      // If factory, you may want to fetch products by factory id (adjust API as needed)
+      getFactory({ id: id, page, limit: 10 })
+        .unwrap()
+        .then(res => {
+          if (page === 1) {
+            setProducts(res?.data?.products || []);
+          } else {
+            setProducts(prev => [...prev, ...(res.data || [])]);
+          }
+          setHasMore((res.data?.length || 0) === 10);
+        });
+    } else {
+      getProducts({ filterCategoryId: id, value: type, strict: strict, page, limit: 10 })
+        .unwrap()
+        .then(res => {
+          if (page === 1) {
+            setProducts(res.data || []);
+          } else {
+            setProducts(prev => [...prev, ...(res.data || [])]);
+          }
+          setHasMore((res.data?.length || 0) === 10);
+        });
+    }
     // eslint-disable-next-line
   }, [id, type, page]);
-
-  console.log('Products:', products);
 
   // Infinite scroll handler
   const handleScroll = () => {
     if (!hasMore || isLoading) return;
-    console.log('running')
-    console.log('Scroll event triggered', ref.current.clientHeight, ref.current.scrollTop, ref.current.scrollHeight);
     if (
-
       ref.current.clientHeight + ref.current.scrollTop >= ref.current.scrollHeight - 200
     ) {
-
       setPage(prev => prev + 1);
     }
   };
-
-
-
-
-
-  // useEffect(() => {
-  //   console.log('ref', ref)
-  //   if (ref.current) {
-  //     console.log('ref.current', ref.current.innerHeight, ref.current.scrollTop, ref.current.scrollHeight);
-  //     if (ref.current.innerHeight + ref.current.scrollTop >= ref.current.scrollHeight - 200) {
-  //       setPage(prev => prev + 1);
-  //     }
-  //   }
-  // }, [ref])
 
   useEffect(() => {
     if (ref.current) {
       ref.current.addEventListener('scroll', handleScroll);
     }
-
     return () => {
       if (ref.current) {
         ref.current.removeEventListener('scroll', handleScroll);
@@ -86,8 +83,34 @@ const skeletonArray = Array.from({ length: 2 });
     setHasMore(true);
   }, [type, id]);
 
+  // Format type for heading (remove commas, capitalize)
+  const getHeading = () => {
+    if (type === 'factory') {
+      if (factoryLoading) return 'Loading...';
+      return factoryData?.data?.factory?.name || 'Factory Products';
+    }
+    if (!type) return '';
+    return type
+      .split(',')
+      .map(str => str.trim().charAt(0).toUpperCase() + str.trim().slice(1))
+      .join(', ');
+  };
+
   return (
     <div ref={ref} style={{ display: 'flex', flexDirection: 'column', width: '100%', justifyContent: 'flex-start', height: '100%', overflowY: 'auto' }}>
+      {/* Header with back button and heading */}
+      <div style={{ display: 'flex', alignItems: 'center', padding: '12px 16px 0 8px', background: '#fff', position: 'sticky', top: 0, zIndex: 10 }}>
+        <IconButton  onClick={() =>{
+                            console.log(window.history);
+                            if (window.history.length > 2) {
+                            navigate(-1);
+                        } else {
+                            navigate('/');
+                        }}}size="small" style={{ marginRight: 8 }}>
+          <ArrowBackIosNewIcon fontSize="small" />
+        </IconButton>
+        <h2 style={{ margin: 0, fontWeight: 700, fontSize: '1.2em', flex: 1 }}>{getHeading()}</h2>
+      </div>
       <ProductListing1 loading={isLoading && page === 1} data={products} ref={null} />
       {isLoading && page > 1 && (
         <div className="product-listing-grid" >

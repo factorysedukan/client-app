@@ -56,4 +56,6 @@ GET_PRODUCTS_BY_FILTER_CATEGORY_VALUE: "api/v1/productsv2/filterCategory/", // +
     // Customer endpoints
     CUSTOMERS: "api/v1/customer", // <-- Added for customer APIs
     GET_CUSTOMER_BY_MOBILE: "api/v1/customer/mobile/", // <-- For get by mobile
+    FACTORY: "api/v1/factory", // <-- Added for factory APIs
+
 }

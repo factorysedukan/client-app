@@ -29,6 +29,8 @@ import { loginApi } from "../Apis/LoginApi";
 // import guestSlice from "../Slices/guestSlice";
 // import HeaderSlice from "../Slices/HeaderSlice";
 import loginReducer from "../Slices/loginSlice";
+import notificationReducer from "../Slices/NotificationSlice";
+
 // import loginReducer from "../Slices/loginSlice";
 import cartReducer from "../Slices/cartSlice";
 import { commonFactoryApi } from "../Apis/commonApiSlice";
@@ -37,6 +39,7 @@ import { categoryApi } from "../Apis/CategoryApi";
 import { colorsApi } from "../Apis/ColorsApi";
 import { homePageTemplateApi } from "../Apis/HomePageTemplateApi";
 import { customerApi } from "../Apis/CustomerApi";
+import { factoryApi } from "../Apis/FactoryApi";
 // import homePageSlice from "../Slices/homePageSlice";
 // import focusElementSlice from "../Slices/focusElementSlice";
 // import {
@@ -55,7 +58,9 @@ const persistConfig = {
     categoryApi.reducerPath,
     colorsApi.reducerPath,
     commonFactoryApi.reducerPath,
-    customerApi.reducerPath
+    customerApi.reducerPath,
+    factoryApi.reducerPath,
+  
     // guestApi.reducerPath,
     // homePageApi.reducerPath,
     // loginApi.reducerPath,
@@ -82,6 +87,8 @@ const rootReducer = combineReducers({
     [colorsApi.reducerPath]: colorsApi.reducer,
     [homePageTemplateApi.reducerPath]: homePageTemplateApi.reducer,
     [customerApi.reducerPath]: customerApi.reducer,
+    factoryApi: factoryApi.reducer,
+    
 
 
 
@@ -107,6 +114,7 @@ const rootReducer = combineReducers({
 //   header: HeaderSlice,
   login: loginReducer,
   cart: cartReducer,
+  notification: notificationReducer,
 
 //   homepage: homePageSlice,
 //   focus: focusElementSlice,
@@ -120,6 +128,7 @@ export const store = configureStore({
   .concat(loginApi.middleware)
  
   .concat(productApi.middleware)
+
   
   // .concat(categoryApi.middleware)
   // .concat(colorsApi.middleware)
