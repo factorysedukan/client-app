@@ -88,7 +88,7 @@ const style = {
   </button>
                 <img
                 style={{width:'100%'}}
-                src={'assets/offer.gif'}
+                src={'/assets/offer.gif'}
                 ></img>
             </Box>
         </Modal>

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   cartState: {
     products: [],
+    totalCartValue: 0, // <-- Add this line
     name: null,
     phone: null,
     address: null,
@@ -46,6 +47,19 @@ const cartSlice = createSlice({
           articles: [articleWithQty],
         });
       }
+
+      // Calculate totalCartValue after adding product
+      state.cartState.totalCartValue = state.cartState.products.reduce((total, prod) => {
+        if (!Array.isArray(prod.articles)) return total;
+        return (
+          total +
+          prod.articles.reduce((sum, art) => {
+            const qty = art.orderQty ?? 1;
+            const price = art.sellingPrice ?? 0;
+            return sum + qty * price;
+          }, 0)
+        );
+      }, 0);
     },
 
     removeProductCart: (state, { payload }) => {
@@ -84,10 +98,24 @@ const cartSlice = createSlice({
           state.cartState.products[prodIdx] = { ...product };
         }
       }
+
+      // Calculate totalCartValue after removing product
+      state.cartState.totalCartValue = state.cartState.products.reduce((total, prod) => {
+        if (!Array.isArray(prod.articles)) return total;
+        return (
+          total +
+          prod.articles.reduce((sum, art) => {
+            const qty = art.orderQty ?? 1;
+            const price = art.sellingPrice ?? 0;
+            return sum + qty * price;
+          }, 0)
+        );
+      }, 0);
     },
 
     clearCart: (state) => {
       state.cartState.products = [];
+      state.cartState.totalCartValue = 0; // <-- Reset on clear
       state.cartState.name = null;
       state.cartState.phone = null;
       state.cartState.address = null;
