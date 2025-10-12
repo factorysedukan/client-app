@@ -56,14 +56,14 @@ const HomeWrapper = () => {
                 background: 'rgba(255,255,255,0.7)',
                 borderRadius: 18,
                 boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
-                padding: '10px 14px',
+                padding: '4px 14px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 8,
                 backdropFilter: 'blur(4px)',
                 border: '1px solid #eee',
                 fontWeight: 600,
-                fontSize: '1em',
+                fontSize: '0.7em',
                 transition: 'background 0.2s'
               }}
             >
@@ -79,14 +79,14 @@ const HomeWrapper = () => {
               background: 'rgba(255,255,255,0.7)',
               borderRadius: 18,
               boxShadow: '0 2px 8px rgba(0,0,0,0.07)',
-              padding: '10px 7px',
+              padding: '4px 7px',
               display: 'flex',
               alignItems: 'center',
               gap: 8,
               backdropFilter: 'blur(4px)',
               border: '1px solid #eee',
               fontWeight: 600,
-              fontSize: '1em',
+              fontSize: '0.7em',
               transition: 'background 0.2s'
             }}
           >
