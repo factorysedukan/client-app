@@ -76,7 +76,7 @@ i18n
           "CONFIRMING": "Confirming...",
           "ORDER_SUCCESS": "Order placed successfully!",
           "ORDER_ERROR": "Something went wrong. Please try again.",
-          "Change Quantity": "क्वांटिटी बदलें",
+          "Change Quantity": "Change Qty",
         },
       },
       hi: {
@@ -146,6 +146,7 @@ i18n
           "CONFIRMING": "पुष्टि हो रही है...",
           "ORDER_SUCCESS": "ऑर्डर सफलतापूर्वक प्लेस हो गया!",
           "ORDER_ERROR": "कुछ गलत हो गया। कृपया पुनः प्रयास करें।",
+          "Change Quantity": "Qty बदलें",
         },
       },
     },

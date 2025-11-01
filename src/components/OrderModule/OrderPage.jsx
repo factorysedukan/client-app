@@ -10,9 +10,11 @@ import { useNavigate } from 'react-router-dom';
 import './OrderPageStyles.css';
 import ConfirmOrderModal from '../Cart/ConfirmOrderModal';
 import OffersCoupon from '../Offers/OffersCoupon'; // <-- Import the OffersCoupon component
+import { useOfferConfettiNotification } from '../../services/helpers/useOfferConfettiNotification';
 
 const OrderPage = () => {
     const { t, i18n } = useTranslation();
+    const { ConfettiJSX, CouponJSX } = useOfferConfettiNotification();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const cartProducts = useSelector(state => state.cart.cartState.products);
@@ -61,6 +63,7 @@ const OrderPage = () => {
 
     return (
         <>
+         {ConfettiJSX}
             <div className="orderpage-bg">
                 <div className="orderpage-heading-row">
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -95,7 +98,7 @@ const OrderPage = () => {
                 ) : (
                     <>
                         <div className="orderpage-list">
-                            <OffersCoupon totalPrice={totalPrice} i18n={i18n} />
+   
                             {/* Heading below offers and above product list */}
                             <div
                                 style={{
@@ -145,18 +148,33 @@ const OrderPage = () => {
                                                         </span>
                                                         <span className="orderpage-article-size">{t('Size')}: {Array.isArray(article.sizes) ? article.sizes.join(', ') : article.sizes}</span>
                                                         <span className="orderpage-article-price">{t('Price')}: ₹{article.sellingPrice}</span>
-
                                                         <span className="orderpage-article-mrp">{t('MRP')}: ₹{article.mrp}</span>
                                                         {article?.sellingPrice && article?.mrp && (
                                                             <span className="orderpage-article-mrp">{t('Margin')}: ₹{(((article?.mrp - article?.sellingPrice) / article?.mrp) * 100).toFixed(1) + '%'}</span>
                                                         )}
                                                         <span className="orderpage-article-minset">{t('Min Set size')}: {article.minUnits}</span>
+                                                        {/* Instock below min set size */}
+                                                        <span className="orderpage-article-instock" style={{ color: '#22c55e', fontWeight: 600, display: 'block', marginTop: 2 }}>
+                                                            {t('In Stock')}: {article.qty ?? 0}
+                                                        </span>
                                                     </div>
                                                     <div className="orderpage-qty-controls">
                                                         <button
                                                             className="orderpage-qty-btn"
                                                             onClick={() => handleQtyChange(product._id, article._id, -1, article.minUnits)}
                                                             disabled={article.orderQty <= 0}
+                                                            style={{
+                                                                background: article.orderQty <= 0 ? '#e5e7eb' : '#e4572e',
+                                                                color: article.orderQty <= 0 ? '#aaa' : '#fff',
+                                                                cursor: article.orderQty <= 0 ? 'not-allowed' : 'pointer',
+                                                                border: 'none',
+                                                                borderRadius: 8,
+                                                                width: 32,
+                                                                height: 32,
+                                                                fontWeight: 700,
+                                                                fontSize: '1.2em',
+                                                                transition: 'background 0.2s'
+                                                            }}
                                                         >
                                                             <RemoveIcon fontSize="small" />
                                                         </button>
@@ -164,6 +182,19 @@ const OrderPage = () => {
                                                         <button
                                                             className="orderpage-qty-btn"
                                                             onClick={() => handleQtyChange(product._id, article._id, 1, article.minUnits)}
+                                                            disabled={article.orderQty >= (article.qty ?? 0)}
+                                                            style={{
+                                                                background: article.orderQty >= (article.qty ?? 0) ? '#e5e7eb' : '#e4572e',
+                                                                color: article.orderQty >= (article.qty ?? 0) ? '#aaa' : '#fff',
+                                                                cursor: article.orderQty >= (article.qty ?? 0) ? 'not-allowed' : 'pointer',
+                                                                border: 'none',
+                                                                borderRadius: 8,
+                                                                width: 32,
+                                                                height: 32,
+                                                                fontWeight: 700,
+                                                                fontSize: '1.2em',
+                                                                transition: 'background 0.2s'
+                                                            }}
                                                         >
                                                             <AddIcon fontSize="small" />
                                                         </button>
@@ -174,6 +205,8 @@ const OrderPage = () => {
                                     </div>
                                 ))
                             )}
+
+                                                     <OffersCoupon totalPrice={totalPrice} i18n={i18n} />
                         </div>
                         
                         <div className="orderpage-totalprice-bottom animate-pop">
@@ -302,6 +335,8 @@ const OrderPage = () => {
                         total={totalPrice}
                     />
                 </div>
+                
+      {CouponJSX}
             </div>
         </>
     );

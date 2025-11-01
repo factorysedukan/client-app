@@ -10,8 +10,8 @@ export const API_CONFIG = {
     GET_PRODUCT_BY_ID: "api/v1/productsv2/", // + :id
     GET_PRODUCTS_PAGINATED: "api/v1/products/paginated",
     GET_PRODUCTS_BY_CATEGORY: "api/v1/products/getProductsByCategory/", // + :categoryId
-    GET_ALL_PRODUCTS: "api/v1/productsv2",
-    SEARCH_PRODUCTS: "api/v1/productsv2/search", // + :searchTerm
+    GET_ALL_PRODUCTS: "api/v1/productsv2/client",
+    SEARCH_PRODUCTS: "api/v1/productsv2/searchclient", // + :searchTerm
 GET_PRODUCTS_BY_FILTER_CATEGORY_VALUE: "api/v1/productsv2/filterCategory/", // + :filterCategoryId/value/:value
     // CREATE_PRODUCT: "api/v1/products/createProduct",
     // EDIT_PRODUCT: "api/v1/products/editProduct/", // + :id

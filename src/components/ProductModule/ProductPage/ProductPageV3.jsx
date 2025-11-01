@@ -67,7 +67,7 @@ const ProductPageV3 = () => {
 
     const handleShare = async (id) => {
         const shareUrl = `${import.meta.env.VITE_APP_JIO_FACTORY_ADMIN_URL}api/v1/productsv2/share/${id}`;
-
+        console.log("Share URL:", shareUrl);
         if (navigator.share) {
             try {
                 await navigator.share({
@@ -84,10 +84,6 @@ const ProductPageV3 = () => {
             alert("Link copied to clipboard!");
         }
     };
-
-
-
-
 
     if (isLoading || !product) {
         return (
@@ -162,7 +158,7 @@ const ProductPageV3 = () => {
                         {getLocalized(product.name, product.nameHindi)}
                     </h1>
 
-
+{/* 
                     <button
                         onClick={() => { handleShare(product._id) }}
                         style={{ marginLeft: 12, display: 'flex', alignItems: 'center', border: '0px solid white', background: 'transparent' }}
@@ -173,7 +169,7 @@ const ProductPageV3 = () => {
                             alt="Share"
                             style={{ width: 28, height: 28 }}
                         />
-                    </button>
+                    </button> */}
 
                     <button
                         onClick={() => { handleShare(product._id) }}
@@ -203,78 +199,111 @@ const ProductPageV3 = () => {
                     <p className='product-desc'>{getLocalized(product.description, product.descriptionHindi)}</p>
                 </div>
 
-                {articles.map((article, idx) => (
-                    <div className="productpagev3-article-row" key={article._id || idx}>
-                        {/* Left: Image with eye icon */}
-                        <div className="productpagev3-article-img-col">
-                            <div className="productpagev3-img-wrap">
-                                <img
-                                    src={article.image}
-                                    alt={getLocalized(article.name, article.nameHindi)}
-                                    className="productpagev3-article-img"
-                                    onClick={() => handleOpenModal(article.image)}
-                                />
-                                <IconButton
-                                    size='small'
-                                    className="productpagev3-eye-btn"
-                                    onClick={() => handleOpenModal(article.image)}
-                                >
-                                    <VisibilityIcon size='small' />
-                                </IconButton>
-                            </div>
-                        </div>
-                        {/* Right: Details and qty */}
-                        <div className="productpagev3-article-details">
-                            <h2 className="productpage-article-title">
-                                {getLocalized(article.name, article.nameHindi)}
-                            </h2>
-                            <div className="productpage-article-row">
-                                <span className="productpage-label">{t('Price')}: ₹{article.sellingPrice}</span>
-                                <span className="productpage-label-mrp">{t('MRP')}: ₹{article.mrp}</span>
-                            </div>
-                            <p className="productpage-label-mrp" style={{ color: '#22c55e', fontWeight: 600, margin: '0px 0 0 0',color: 'rgb(135 2 2)',fontSize:'1em' }}>
-                                {(() => {
-                                    const price = article?.sellingPrice;
-                                    const mrp = article?.mrp;
-                                    if (price && mrp) {
-                                        const margin = ((mrp - price) / mrp) * 100;
-                                        return `Margin: ${margin.toFixed(1)}%`;
-                                    }
-                                    return "Margin: --";
-                                })()}
-                            </p>
-                            {/* Sizes chips */}
-                            <div className="productpage-article-sizes-row">
-                                <span className="productpage-label-generic">{t('Size')}:</span>
-                                {(Array.isArray(article.sizes) ? article.sizes : []).map((size, sidx) => (
-                                    <span
-                                        key={size.label || size || sidx}
-                                        className="productpage-article-size-chip"
+                {articles
+                    .filter(article => (article.qty ?? 0) > 0) // Only show articles with qty > 0
+                    .map((article, idx) => (
+                        <div className="productpagev3-article-row" key={article._id || idx}>
+                            {/* Left: Image with eye icon */}
+                            <div className="productpagev3-article-img-col">
+                                <div className="productpagev3-img-wrap">
+                                    <img
+                                        src={article.image}
+                                        alt={getLocalized(article.name, article.nameHindi)}
+                                        className="productpagev3-article-img"
+                                        onClick={() => handleOpenModal(article.image)}
+                                    />
+                                    <IconButton
+                                        size='small'
+                                        className="productpagev3-eye-btn"
+                                        onClick={() => handleOpenModal(article.image)}
                                     >
-                                        {size.label || size.join(',')}
+                                        <VisibilityIcon size='small' />
+                                    </IconButton>
+                                </div>
+                            </div>
+                            {/* Right: Details and qty */}
+                            <div className="productpagev3-article-details">
+                                <h2 className="productpage-article-title">
+                                    {getLocalized(article.name, article.nameHindi)}
+                                </h2>
+                                <div className="productpage-article-row">
+                                    <span className="productpage-label">{t('Price')}: ₹{article.sellingPrice}</span>
+                                    <span className="productpage-label-mrp">{t('MRP')}: ₹{article.mrp}</span>
+                                </div>
+                                <p className="productpage-label-mrp" style={{ color: '#22c55e', fontWeight: 600, margin: '0px 0 0 0',color: 'rgb(135 2 2)',fontSize:'1em' }}>
+                                {(() => {
+                                        const price = article?.sellingPrice;
+                                        const mrp = article?.mrp;
+                                        if (price && mrp) {
+                                            const margin = ((mrp - price) / mrp) * 100;
+                                            return `Margin: ${margin.toFixed(1)}%`;
+                                        }
+                                        return "Margin: --";
+                                    })()}
+                                </p>
+                                {/* Sizes chips */}
+                                <div className="productpage-article-sizes-row">
+                                    <span className="productpage-label-generic">{t('Size')}:</span>
+                                    {(Array.isArray(article.sizes) ? article.sizes : []).map((size, sidx) => (
+                                        <span
+                                            key={size.label || size || sidx}
+                                            className="productpage-article-size-chip"
+                                        >
+                                            {size.label || size.join(',')}
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="productpage-article-row">
+                                    <span className="productpage-label-generic">{t('Min Set size')}: {article.minUnits}</span>
+                                </div>
+                                {/* Show in stock above qty controls */}
+                                <div className="productpage-article-row" style={{ marginBottom: 4 }}>
+                                    <span className="productpage-label-generic" style={{ color: '#22c55e', fontWeight: 600 }}>
+                                        {t('In Stock')}: {article.qty ?? 0}
                                     </span>
-                                ))}
-                            </div>
-                            <div className="productpage-article-row">
-                                <span className="productpage-label-generic">{t('Min Set size')}: {article.minUnits}</span>
-                            </div>
-                            <div className="productpage-qty-row">
-                                <button
-                                    disabled={getProductQuantity(article._id) == 0}
-                                    className="qty-btn"
-                                    onClick={() => handleQtyChange(article, -1)}
-                                >-</button>
-                                <span className="qty-value">
-                                    {getProductQuantity(article._id) || 0}
-                                </span>
-                                <button
-                                    className="qty-btn"
-                                    onClick={() => handleQtyChange(article, 1)}
-                                >+</button>
+                                </div>
+                                <div className="productpage-qty-row">
+                                    <button
+                                        disabled={getProductQuantity(article._id) == 0}
+                                        className="qty-btn"
+                                        onClick={() => handleQtyChange(article, -1)}
+                                        style={{
+                                            background: getProductQuantity(article._id) == 0 ? '#e5e7eb' : '#e4572e',
+                                            color: getProductQuantity(article._id) == 0 ? '#aaa' : '#fff',
+                                            cursor: getProductQuantity(article._id) == 0 ? 'not-allowed' : 'pointer',
+                                            border: 'none',
+                                            borderRadius: 8,
+                                            width: 32,
+                                            height: 32,
+                                            fontWeight: 700,
+                                            fontSize: '1.2em',
+                                            transition: 'background 0.2s'
+                                        }}
+                                    >-</button>
+                                    <span className="qty-value">
+                                        {getProductQuantity(article._id) || 0}
+                                    </span>
+                                    <button
+                                        className="qty-btn"
+                                        onClick={() => handleQtyChange(article, 1)}
+                                        disabled={getProductQuantity(article._id) >= (article.qty ?? 0)}
+                                        style={{
+                                            background: getProductQuantity(article._id) >= (article.qty ?? 0) ? '#e5e7eb' : '#e4572e',
+                                            color: getProductQuantity(article._id) >= (article.qty ?? 0) ? '#aaa' : '#fff',
+                                            cursor: getProductQuantity(article._id) >= (article.qty ?? 0) ? 'not-allowed' : 'pointer',
+                                            border: 'none',
+                                            borderRadius: 8,
+                                            width: 32,
+                                            height: 32,
+                                            fontWeight: 700,
+                                            fontSize: '1.2em',
+                                            transition: 'background 0.2s'
+                                        }}
+                                    >+</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
                 <div className="productpage-footer productpage-footer-v2">
                     <h3 className='product-desc-heading'>{t('Description')}</h3>
                     <p className='product-desc'>{getLocalized(product.description, product.descriptionHindi)}</p>
@@ -288,18 +317,6 @@ const ProductPageV3 = () => {
                 </div>
             </div>
 
-            {/* Footer: product description and other products */}
-            {/* <div className="productpage-footer productpage-footer-v2">
-                <h3 className='product-desc-heading'>{t('Description')}</h3>
-                <p className='product-desc'>{getLocalized(product.description, product.descriptionHindi)}</p>
-                <div className="productpage-section">
-                    <h2 className="productpage-section-title">{t('Other Products')}</h2>
-                    <ProductListing2
-                        loading={isHomeLoading}
-                        data={homeTemplateData?.data?.[0]?.SmallSlider}
-                    />
-                </div>
-            </div> */}
             <AddProductToCartModel
                 open={openCartModel}
                 onClose={() => setOpenCartModel(false)}
