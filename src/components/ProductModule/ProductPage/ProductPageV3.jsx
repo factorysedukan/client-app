@@ -257,11 +257,11 @@ const ProductPageV3 = () => {
                                     <span className="productpage-label-generic">{t('Min Set size')}: {article.minUnits}</span>
                                 </div>
                                 {/* Show in stock above qty controls */}
-                                <div className="productpage-article-row" style={{ marginBottom: 4 }}>
+                                {/* <div className="productpage-article-row" style={{ marginBottom: 4 }}>
                                     <span className="productpage-label-generic" style={{ color: '#22c55e', fontWeight: 600 }}>
                                         {t('In Stock')}: {article.qty ?? 0}
                                     </span>
-                                </div>
+                                </div> */}
                                 <div className="productpage-qty-row">
                                     <button
                                         disabled={getProductQuantity(article._id) == 0}
@@ -300,7 +300,15 @@ const ProductPageV3 = () => {
                                             transition: 'background 0.2s'
                                         }}
                                     >+</button>
+
+                                    {/* Show out-of-stock message when qty finished */}
+                                    
                                 </div>
+                                {getProductQuantity(article._id) >= (article.qty ?? 0) && (article.qty ?? 0) > 0 && (
+                                        <div style={{ color: '#e4572e', fontSize: '0.65em', fontWeight: 700 }}>
+                                            {i18n?.language === 'hi' ? 'इस आर्टिकल का स्टॉक पूरा हो चुका है — अब और आइटम नहीं जोड़े जा सकते।' : 'Stock for this article is full — no more items can be added.'}
+                                        </div>
+                                    )}
                             </div>
                         </div>
                     ))}

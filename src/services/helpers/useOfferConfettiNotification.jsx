@@ -7,7 +7,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 const getEligibleOffer = (totalCartValue) => {
   if (totalCartValue >= 50000) return Offers[2];
   if (totalCartValue >= 25000) return Offers[1];
-  if (totalCartValue >= 2000) return Offers[0];
+  if (totalCartValue >= 5000) return Offers[0];
   return null;
 };
 
@@ -29,7 +29,7 @@ export const useOfferConfettiNotification = () => {
       prevOfferRef.current = offer.name;
       // Hide confetti after 3 seconds, coupon after 6 seconds
       setTimeout(() => setShowConfetti(false), 3000);
-      setTimeout(() => setShowCoupon(false), 6000);
+      setTimeout(() => setShowCoupon(false), 3000);
     }
     // If cart value drops below all offers, reset
     if (!offer) {

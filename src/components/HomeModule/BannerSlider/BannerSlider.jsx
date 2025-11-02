@@ -11,7 +11,7 @@ const BannerSlider = ({ dots, data,aspectRatio,styleObj}) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3500,
+    autoplaySpeed: 5000,
     cssEase: "ease-in-out",
     pauseOnHover: true,
   };
@@ -28,7 +28,7 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
         {data?.map((item,index) => (
           <div id={index+1} key={index} >
             <img 
-            onClick={() => { navigate(`/CategoryPages?type=${item?.value}&&id=${import.meta.env.VITE_APP_JIO_CATEGORY_ID}`) } }
+            // onClick={() => { navigate(`/CategoryPages?type=${item?.value}&&id=${import.meta.env.VITE_APP_JIO_CATEGORY_ID}`) } }
             style={{ aspectRatio: aspectRatio, width: '100%' }} src={item?.image} alt="" />
           </div>
         ))}

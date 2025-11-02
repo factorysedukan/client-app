@@ -7,7 +7,12 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const FactoryListing = ({ loading = false, data = [] }) => {
   const skeletonArray = Array.from({ length: 6 });
-  const factories = Array.isArray(data) ? data : [];
+  // sort ascending (lowest priority first). missing priority => 0
+  const factories = Array.isArray(data)
+    ? [...data].sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0))
+    : [];
+
+    console.log('factories after sorting:', factories);
   const navigate = useNavigate();
   const scrollRef = useRef(null);
   const [scrollPos, setScrollPos] = useState(0);

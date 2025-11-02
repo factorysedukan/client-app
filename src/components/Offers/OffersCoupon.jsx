@@ -7,7 +7,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'; // <-- Import tic
 function getOfferCounts(totalPrice) {
   let offers = [];
   // Bag: One for each order above 2500
-  if (totalPrice >= 2500) {
+  if (totalPrice >= 5000) {
     offers.push({ ...Offers[0], qty: 1,});
   }
   // Speaker: One for order above 25000 up to 50000

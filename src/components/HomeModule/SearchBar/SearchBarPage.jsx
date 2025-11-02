@@ -13,7 +13,7 @@ import { useTranslation, Trans } from 'react-i18next';
 
 function useDebouncedCallback(callback, delay) {
 
-    const timeoutRef = useRef();
+  const timeoutRef = useRef();
   const debounced = useCallback(
     (...args) => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -25,7 +25,7 @@ function useDebouncedCallback(callback, delay) {
 }
 
 const SearchBarPage = () => {
-      const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const [query, setQuery] = useState(() => sessionStorage.getItem('searchQuery') || '');
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -128,24 +128,25 @@ const SearchBarPage = () => {
     // eslint-disable-next-line
   }, [page]);
 
-  useEffect(()=>{
-    if(sessionStorage.getItem('searchQuery')){
-        debouncedSearch(sessionStorage.getItem('searchQuery'), 1);
+  useEffect(() => {
+    if (sessionStorage.getItem('searchQuery')) {
+      debouncedSearch(sessionStorage.getItem('searchQuery'), 1);
     }
-  },[])
+  }, [])
 
   // Suggestions for dropdown
   const suggestions = query
     ? results.filter(item =>
-        (item.name || '').toLowerCase().includes(query.toLowerCase()) ||
-        (item.nameHindi || '').toLowerCase().includes(query.toLowerCase())
-      )
+      (item.name || '').toLowerCase().includes(query.toLowerCase()) ||
+      (item.nameHindi || '').toLowerCase().includes(query.toLowerCase())
+    )
     : [];
 
   // Blur on click outside or scroll
   useEffect(() => {
     function handleClickOutside(event) {
       if (
+        inputRef.current &&
         !inputRef.current.contains(event.target) &&
         !document.querySelector('.searchbarpage-suggestions')?.contains(event.target)
       ) {
@@ -166,14 +167,15 @@ const SearchBarPage = () => {
   }, []);
 
   return (
-    <div className="searchbarpage-root">
+    // <div className="searchbarpage-root">
+    <>
       <AppBar position="sticky" color="inherit" elevation={1} className="searchbarpage-appbar">
         <Toolbar className="searchbarpage-toolbar">
           <IconButton onClick={() => navigate(-1)} className="searchbarpage-back-btn">
             <ArrowBackIosNewIcon fontSize="small" sx={{ color: '#e4572e' }} />
           </IconButton>
-        
-          <Box className="searchbarpage-searchbar-wrap">
+
+          <Box className="searchbarpage-searchbar-wrap" >
             <TextField
               inputRef={inputRef}
               className="searchbarpage-input"
@@ -200,6 +202,9 @@ const SearchBarPage = () => {
                 style: { borderRadius: 18, background: '#fff' }
               }}
               sx={{
+                '& input': {
+                  fontSize: '16px', // 👈 ensures input text is 16px+
+                },
                 '& .MuiOutlinedInput-root': {
                   borderRadius: '18px',
                   background: '#fff',
@@ -245,7 +250,7 @@ const SearchBarPage = () => {
           By <span className="tagline-highlight">Shubham Traders</span>
         </Trans>
       </div> */}
-      <Paper
+      <div
         ref={listRef}
         style={{
           height: '100%',
@@ -289,8 +294,8 @@ const SearchBarPage = () => {
             {t('OTHER_PRODUCTS')}
           </Typography>
         )}
-      </Paper>
-    </div>
+      </div>
+    </>
   );
 };
 

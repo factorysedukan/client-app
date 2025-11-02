@@ -63,10 +63,10 @@ GET_PRODUCTS_BY_FILTER_CATEGORY_VALUE: "api/v1/productsv2/filterCategory/", // +
 
 export const Offers = [
   {
-    name: 'Free bag on order above 2000',
-    nameHindi: '2000 से ऊपर के ऑर्डर पर फ्री बैग',
+    name: 'Free bag on order above 5000',
+    nameHindi: '5000 से ऊपर के ऑर्डर पर फ्री बैग',
     image: 'https://res.cloudinary.com/dy6k69ynu/image/upload/v1760198278/heris_1_pt3dd0.png',
-    price:2000
+    price:5000
   },
   {
     name: 'Free speaker on order above 25000',

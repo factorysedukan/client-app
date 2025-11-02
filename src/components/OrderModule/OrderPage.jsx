@@ -63,7 +63,7 @@ const OrderPage = () => {
 
     return (
         <>
-         {ConfettiJSX}
+            {ConfettiJSX}
             <div className="orderpage-bg">
                 <div className="orderpage-heading-row">
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -98,7 +98,7 @@ const OrderPage = () => {
                 ) : (
                     <>
                         <div className="orderpage-list">
-   
+
                             {/* Heading below offers and above product list */}
                             <div
                                 style={{
@@ -154,11 +154,12 @@ const OrderPage = () => {
                                                         )}
                                                         <span className="orderpage-article-minset">{t('Min Set size')}: {article.minUnits}</span>
                                                         {/* Instock below min set size */}
-                                                        <span className="orderpage-article-instock" style={{ color: '#22c55e', fontWeight: 600, display: 'block', marginTop: 2 }}>
+                                                        {/* <span className="orderpage-article-instock" style={{ color: '#22c55e', fontWeight: 600, display: 'block', marginTop: 2 }}>
                                                             {t('In Stock')}: {article.qty ?? 0}
-                                                        </span>
+                                                        </span> */}
                                                     </div>
                                                     <div className="orderpage-qty-controls">
+                                                        <div className="orderpage-qty-btn-group">
                                                         <button
                                                             className="orderpage-qty-btn"
                                                             onClick={() => handleQtyChange(product._id, article._id, -1, article.minUnits)}
@@ -198,7 +199,15 @@ const OrderPage = () => {
                                                         >
                                                             <AddIcon fontSize="small" />
                                                         </button>
+                                                        </div>
+                                                         {/* {article.orderQty >= (article.qty ?? 0) && (article.qty ?? 0) > 0 && (
+                                                        <div style={{ color: '#e4572e', fontSize: '0.65em', marginLeft: 12, fontWeight: 700 }}>
+                                            {i18n?.language === 'hi' ? 'इस आर्टिकल का स्टॉक पूरा हो चुका है — अब और आइटम नहीं जोड़े जा सकते।' : 'Stock for this article is full — no more items can be added.'}
+                                                           
+                                                        </div>
+                                                    )} */}
                                                     </div>
+                                                   
                                                 </div>
                                             ))}
                                         </div>
@@ -206,9 +215,9 @@ const OrderPage = () => {
                                 ))
                             )}
 
-                                                     <OffersCoupon totalPrice={totalPrice} i18n={i18n} />
+                            <OffersCoupon totalPrice={totalPrice} i18n={i18n} />
                         </div>
-                        
+
                         <div className="orderpage-totalprice-bottom animate-pop">
                             {t('Total')}: <span className="orderpage-totalprice-value">₹{formatPrice(totalPrice)}</span>
                         </div>
@@ -335,8 +344,8 @@ const OrderPage = () => {
                         total={totalPrice}
                     />
                 </div>
-                
-      {CouponJSX}
+
+                {CouponJSX}
             </div>
         </>
     );

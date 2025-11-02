@@ -134,7 +134,7 @@ const HomeWrapper = () => {
       <div
         style={{
           position: 'fixed',
-          bottom: '60%',
+          bottom: '40%',
           right: 16,
           zIndex: 10000,
           display: 'flex',
