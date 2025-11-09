@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useGetCustomerByMobileMutation } from '../../redux/Apis/CustomerApi';
-import { Button, Accordion, AccordionSummary, AccordionDetails, Skeleton } from '@mui/material';
+import { Button, Accordion, AccordionSummary, AccordionDetails, Skeleton, Chip } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -75,7 +75,12 @@ const PastOrders = () => {
     );
   }
 
-  const orders = data?.customer?.orders || [];
+  // sort orders by createdAt descending (most recent first)
+  const orders = (data?.customer?.orders || []).slice().sort((a, b) => {
+    const ta = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const tb = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return tb - ta;
+  });
 
   return (
     <div className="orderpage-bg" style={{ minHeight: '60vh', padding: '24px 0' }}>
@@ -111,6 +116,25 @@ const PastOrders = () => {
 // Child component to fetch and show products/articles for an order
 const OrderAccordion = ({ order, expanded, onChange }) => {
   const { t } = useTranslation();
+  // map status -> chip styles and label
+  const getStatusProps = (status) => {
+    const s = (status || '').toString().toLowerCase();
+    switch (s) {
+      case 'placed':
+        return { label: 'Placed', bg: '#1e88e5', color: '#fff' };
+      case 'instransit':
+      case 'intransit':
+      case 'in_transit':
+        return { label:'In Transit', bg: '#f59e0b', color: '#000' };
+      case 'completed':
+        return { label: 'Completed', bg: '#22c55e', color: '#fff' };
+      case 'cancelled':
+      case 'canceled':
+        return { label:'Cancelled', bg: '#ef4444', color: '#fff' };
+      default:
+        return { label: status || '', bg: '#ddd', color: '#000' };
+    }
+  };
   const products = order?.products || [];
   const [getProductByID] = useGetProductByIDMutation();
   const [productQueries, setProductQueries] = useState({}); // { [productId]: productData }
@@ -148,18 +172,29 @@ const OrderAccordion = ({ order, expanded, onChange }) => {
         id={`panel-${order._id}-header`}
         style={{ background: '#fff7f3', borderRadius: 14, minHeight: 56 }}
       >
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-          <span style={{ fontWeight: 700, fontSize: '1.1em', color: '#e4572e' }}>
-            {t('Order')} #{order._id.slice(-6).toUpperCase()}
-          </span>
-          <span style={{ fontSize: '0.98em', color: '#555', marginTop: 2 }}>
-            {t('Placed on')}: {new Date(order.createdAt).toLocaleString('en-IN')}
-          </span>
-          <span style={{ fontWeight: 600, color: '#22c55e', marginTop: 2 }}>
-            {t('Total')}: ₹
-              {order?.orderTotal.toLocaleString('en-IN')}
-            
-          </span>
+        <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontWeight: 700, fontSize: '1.1em', color: '#e4572e' }}>
+              {t('Order')} #{order._id.slice(-6).toUpperCase()}
+            </span>
+            <span style={{ fontSize: '0.98em', color: '#555', marginTop: 4 }}>
+              {t('Placed on')}: {new Date(order.createdAt).toLocaleString('en-IN')}
+            </span>
+            <span style={{ fontWeight: 600, color: '#22c55e', marginTop: 4 }}>
+              {t('Total')}: ₹{order?.orderTotal.toLocaleString('en-IN')}
+            </span>
+          </div>
+          {/* status chip */}
+          {order?.status && (() => {
+            const props = getStatusProps(order.status);
+            return (
+              <Chip
+                label={props.label}
+                sx={{ backgroundColor: props.bg, color: props.color, fontWeight: 700, borderRadius: 2, textTransform: 'capitalize' }}
+                size="small"
+              />
+            );
+          })()}
         </div>
       </AccordionSummary>
       <AccordionDetails style={{ background: '#fff', borderRadius: 14 }}>

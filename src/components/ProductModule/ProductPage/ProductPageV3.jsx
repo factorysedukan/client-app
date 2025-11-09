@@ -256,59 +256,94 @@ const ProductPageV3 = () => {
                                 <div className="productpage-article-row">
                                     <span className="productpage-label-generic">{t('Min Set size')}: {article.minUnits}</span>
                                 </div>
-                                {/* Show in stock above qty controls */}
-                                {/* <div className="productpage-article-row" style={{ marginBottom: 4 }}>
-                                    <span className="productpage-label-generic" style={{ color: '#22c55e', fontWeight: 600 }}>
-                                        {t('In Stock')}: {article.qty ?? 0}
-                                    </span>
-                                </div> */}
+                                {/* Qty / Add to cart area */}
                                 <div className="productpage-qty-row">
-                                    <button
-                                        disabled={getProductQuantity(article._id) == 0}
-                                        className="qty-btn"
-                                        onClick={() => handleQtyChange(article, -1)}
-                                        style={{
-                                            background: getProductQuantity(article._id) == 0 ? '#e5e7eb' : '#e4572e',
-                                            color: getProductQuantity(article._id) == 0 ? '#aaa' : '#fff',
-                                            cursor: getProductQuantity(article._id) == 0 ? 'not-allowed' : 'pointer',
-                                            border: 'none',
-                                            borderRadius: 8,
-                                            width: 32,
-                                            height: 32,
-                                            fontWeight: 700,
-                                            fontSize: '1.2em',
-                                            transition: 'background 0.2s'
-                                        }}
-                                    >-</button>
-                                    <span className="qty-value">
-                                        {getProductQuantity(article._id) || 0}
-                                    </span>
-                                    <button
-                                        className="qty-btn"
-                                        onClick={() => handleQtyChange(article, 1)}
-                                        disabled={getProductQuantity(article._id) >= (article.qty ?? 0)}
-                                        style={{
-                                            background: getProductQuantity(article._id) >= (article.qty ?? 0) ? '#e5e7eb' : '#e4572e',
-                                            color: getProductQuantity(article._id) >= (article.qty ?? 0) ? '#aaa' : '#fff',
-                                            cursor: getProductQuantity(article._id) >= (article.qty ?? 0) ? 'not-allowed' : 'pointer',
-                                            border: 'none',
-                                            borderRadius: 8,
-                                            width: 32,
-                                            height: 32,
-                                            fontWeight: 700,
-                                            fontSize: '1.2em',
-                                            transition: 'background 0.2s'
-                                        }}
-                                    >+</button>
+                                    {getProductQuantity(article._id) == 0 ? (
+                                        // Show Add to cart button when qty is zero
+                                        <button
+                                            className="qty-btn"
+                                            onClick={() => handleQtyChange(article, 1)}
+                                            style={{
+                                                background: '#e4572e',
+                                                color: '#fff',
+                                                cursor: 'pointer',
+                                                border: 'none',
+                                                borderRadius: 8,
+                                                padding: '8px 12px',
+                                                fontWeight: 700,
+                                                fontSize: '0.95em',
+                                                transition: 'background 0.2s'
+                                            }}
+                                        >
+                                            {i18n?.language === 'hi' ? 'Item खरीदें' : 'Add Item'}
+                                        </button>
+                                    ) : (
+                                        // Show qty controls when item already in cart
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start',gap:'0.25em'}}>
+                                                <div style={{ fontSize: '0.75em', color: '#444', fontWeight: 600 }}>
+                                                    {/* instruction text on top */}
+                                                    {i18n?.language === 'hi' ? 'Qty बढ़ाएँ/घटाएँ' : 'Increase/Decrease qty'}
+                                                </div>
+                                                <div style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
+                                                    <button
+                                                        disabled={getProductQuantity(article._id) == 0}
+                                                        className="qty-btn"
+                                                        onClick={() => handleQtyChange(article, -1)}
+                                                        style={{
+                                                            background: getProductQuantity(article._id) == 0 ? '#e5e7eb' : '#e4572e',
+                                                            color: getProductQuantity(article._id) == 0 ? '#aaa' : '#fff',
+                                                            cursor: getProductQuantity(article._id) == 0 ? 'not-allowed' : 'pointer',
+                                                            border: 'none',
+                                                            borderRadius: 8,
+                                                            width: 32,
+                                                            height: 32,
+                                                            fontWeight: 700,
+                                                            fontSize: '1.2em',
+                                                            transition: 'background 0.2s'
+                                                        }}
+                                                    >-</button>
+                                                    <span className="qty-value" style={{ minWidth: 28, textAlign: 'center', fontWeight: 700 }}>
+                                                        {getProductQuantity(article._id) || 0}
+                                                    </span>
+                                                    <button
+                                                        className="qty-btn"
+                                                        onClick={() => handleQtyChange(article, 1)}
+                                                        disabled={getProductQuantity(article._id) >= (article.qty ?? 0)}
+                                                        style={{
+                                                            background: getProductQuantity(article._id) >= (article.qty ?? 0) ? '#e5e7eb' : '#e4572e',
+                                                            color: getProductQuantity(article._id) >= (article.qty ?? 0) ? '#aaa' : '#fff',
+                                                            cursor: getProductQuantity(article._id) >= (article.qty ?? 0) ? 'not-allowed' : 'pointer',
+                                                            border: 'none',
+                                                            borderRadius: 8,
+                                                            width: 32,
+                                                            height: 32,
+                                                            fontWeight: 700,
+                                                            fontSize: '1.2em',
+                                                            transition: 'background 0.2s'
+                                                        }}
+                                                    >+</button>
+                                                </div>
+                                                <div style={{ fontSize: '0.85em', color: '#666' }}>
+                                                {i18n?.language === 'hi'
+                                                    ? `कार्ट में डाली गई संख्या: ${getProductQuantity(article._id) || 0}`
+                                                    : `Qty added:  ${getProductQuantity(article._id) || 0}`}
+                                            </div>
+                                            {/* {getProductQuantity(article._id) >= (article.qty ?? 0) && (article.qty ?? 0) > 0 && (
+                                        <div style={{ color: '#e4572e', fontSize: '0.65em', fontWeight: 700, marginTop: 8 }}>
+                                            {i18n?.language === 'hi' ? 'अधिकतम मात्रा पूरी हो चुकी है।' : 'Maximum quantity reached'}
+                                        </div>
+                                    )} */}
+                                            </div>
+
+                                            {/* optional small remove/edit return on top (shows current qty) */}
+                                            
+                                        </div>
+                                    )}
 
                                     {/* Show out-of-stock message when qty finished */}
                                     
                                 </div>
-                                {getProductQuantity(article._id) >= (article.qty ?? 0) && (article.qty ?? 0) > 0 && (
-                                        <div style={{ color: '#e4572e', fontSize: '0.65em', fontWeight: 700 }}>
-                                            {i18n?.language === 'hi' ? 'इस आर्टिकल का स्टॉक पूरा हो चुका है — अब और आइटम नहीं जोड़े जा सकते।' : 'Stock for this article is full — no more items can be added.'}
-                                        </div>
-                                    )}
                             </div>
                         </div>
                     ))}
