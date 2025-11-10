@@ -15,6 +15,8 @@ const FooterNavigation = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const cartProducts = useSelector(state => state.cart.cartState.products);
+  const cartPrice = useSelector(state => state.cart.cartState.totalCartValue);
+
   const path = useLocation();
   // Call getFeatureCategories API on mount
   const [getFeatureCategories, { data, isLoading, error }] = useGetFeatureCategoriesMutation();
@@ -78,7 +80,13 @@ const FooterNavigation = () => {
       {hasCartProducts && (path.pathname.toLowerCase() !== '/cart') && (
         <button
           className="footer-place-order-btn"
-          onClick={() => navigate('/Cart')}
+          onClick={() => {
+            window.gtag('event', 'place_order', {
+              value: cartPrice,
+              
+            });
+            navigate('/Cart')
+          }}
         >
           {t('Place Order')}
         </button>
