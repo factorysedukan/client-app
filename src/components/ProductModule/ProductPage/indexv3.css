@@ -312,6 +312,68 @@
   letter-spacing: 0.5px;
 }
 
+/* error / skeleton styles moved from inline to CSS */
+
+.productpage-error-wrap {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center;
+  justify-content: center;
+  padding: 24px; */
+}
+
+.productpage-error-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+  max-width: 520px;
+  text-align: center;
+}
+
+.productpage-error-title {
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ef4444; /* red */
+}
+
+.productpage-error-sub {
+  margin: 0 0 16px 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.productpage-error-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.productpage-error-btn {
+  background: #e4572e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* skeleton helpers used earlier */
+.skeleton-hero { border-radius: 24px; animation: pulse 1.2s infinite; }
+.skeleton-line-lg, .skeleton-line { animation: pulse 1.2s infinite; margin: 8px 0; display: block; }
+.skeleton-image { border-radius: 12px; margin-right: 16px; animation: pulse 1.2s infinite; display: block; }
+.skeleton-texts { flex: 1; }
+.skeleton-rect { border-radius: 8px; animation: pulse 1.2s infinite; }
+
+/* small pulse animation */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
 @media (min-width: 900px) {
 .productpage-header-logo {
   width: 10%;

@@ -85,7 +85,10 @@ const FooterNavigation = () => {
               value: cartPrice,
               
             });
-            navigate('/Cart')
+            setTimeout(() => {
+                       navigate('/Cart')
+            }, 100);
+   
           }}
         >
           {t('Place Order')}
