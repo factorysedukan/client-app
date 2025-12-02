@@ -1,2 +1,2 @@
 # client-app
-Client app for factorysedukan.com
+Client app for footwearmandi.com

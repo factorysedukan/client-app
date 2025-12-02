@@ -10,6 +10,7 @@ import ProductListing1 from '../ProductListing/ProductListing1';
 import Skeleton from '@mui/material/Skeleton';
 import { useTranslation, Trans } from 'react-i18next';
 
+const RECENT_KEY = 'recentSearches_v1';
 
 function useDebouncedCallback(callback, delay) {
 
@@ -28,6 +29,14 @@ const SearchBarPage = () => {
   const { t } = useTranslation();
 
   const [query, setQuery] = useState(() => sessionStorage.getItem('searchQuery') || '');
+  const [recentSearches, setRecentSearches] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem(RECENT_KEY)) || [];
+    } catch {
+      return [];
+    }
+  });
+
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchProductV2, { isLoading }] = useSearchProductV2Mutation();
   const [results, setResults] = useState([]);
@@ -80,12 +89,46 @@ const SearchBarPage = () => {
     inputRef.current?.focus();
   };
 
+  const saveRecent = (item) => {
+    if (!item || !item.name) return;
+    try {
+      const minimal = { _id: item._id, name: item.name, nameHindi: item.nameHindi || '' };
+      setRecentSearches(prev => {
+        const filtered = prev.filter(r => (r._id && r._id === minimal._id) || (r.name === minimal.name) ? false : true);
+        const next = [minimal, ...filtered].slice(0, 6);
+        localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+        return next;
+      });
+    } catch (e) {
+      // ignore
+    }
+  };
+
   const handleSelect = (item) => {
+    saveRecent(item);
     setQuery(item.name);
     sessionStorage.setItem('searchQuery', item.name); // Save selected value to sessionStorage
     setShowSuggestions(false);
     setResults([item]);
     inputRef.current?.blur();
+  };
+
+  const handleChipClick = (item) => {
+    if (!item) return;
+    saveRecent(item); // move to front
+    setQuery(item.name);
+    setPage(1);
+    setShowSuggestions(false);
+    // trigger immediate search (not waiting for debounce)
+    (async () => {
+      try {
+        const res = await searchProductV2({ q: item.name, page: 1, limit: 20 });
+        setResults(res.data?.data || []);
+        setHasMore((res.data?.data?.length || 0) === 20);
+      } catch (err) {
+        setResults([]);
+      }
+    })();
   };
 
   // Blur input on Enter key and close suggestions/results
@@ -245,11 +288,25 @@ const SearchBarPage = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      {/* <div className="header-tagline">
-        <Trans i18nKey="BY_SHUBHAM_TRADERS">
-          By <span className="tagline-highlight">Shubham Traders</span>
-        </Trans>
-      </div> */}
+
+      {/* recent chips - shows up to 6 */}
+      {recentSearches && recentSearches.length > 0 && (
+        <Box className="searchbarpage-recent-chips-wrap" sx={{ px: 2, mt: 1 }}>
+          <div className="searchbarpage-recent-chips">
+            {recentSearches.map((r, i) => (
+              <button
+                key={r._id || `${r.name}-${i}`}
+                className="searchbarpage-recent-chip"
+                onClick={() => handleChipClick(r)}
+                title={r.name}
+              >
+                {r.name}
+              </button>
+            ))}
+          </div>
+        </Box>
+      )}
+
       <div
         ref={listRef}
         style={{

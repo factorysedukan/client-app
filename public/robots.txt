@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://factorysedukan.com/sitemap.xml
+Sitemap: https://footwearmandi.com/sitemap.xml

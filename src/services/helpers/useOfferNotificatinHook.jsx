@@ -14,7 +14,7 @@ export const useOfferNotificationHook = () => {
     const [notifications, setNotifications] = useState([])
     const [callNotification, setCallNotification] = useState(false)
     const [callCounts, setCallCounts] = useState(0)
-    const [timer, setTimer] = useState(1000*30)
+    const [timer, setTimer] = useState(1000*60*5)
     useEffect(() => {
         // setCallNotification(false)
         let timerEvent
@@ -22,7 +22,7 @@ export const useOfferNotificationHook = () => {
             timerEvent = setTimeout(() => {
                 setCallNotification(true)
                 setCallCounts(callCounts + 1)
-                setTimer(1000*60*5)
+                setTimer(1000*60*20)
             }, timer);
         }
 

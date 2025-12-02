@@ -82,11 +82,11 @@
   margin-top: 6px;
   gap: 8px;
 }
-
 .product-price {
-  font-weight: 700;
-  color: #222;
-  font-size: 0.95rem;
+  color: #C84630;
+   color: lab(50.59% -53.46 53.47);
+  font-weight: bold;
+  font-size: 1rem;
   margin: 0;
 }
 

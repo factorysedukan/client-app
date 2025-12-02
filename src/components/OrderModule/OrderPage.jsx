@@ -59,7 +59,7 @@ const OrderPage = () => {
     };
 
     // Minimum order value
-    const MIN_ORDER_VALUE = 2000;
+    const MIN_ORDER_VALUE = 0;
 
     return (
         <>

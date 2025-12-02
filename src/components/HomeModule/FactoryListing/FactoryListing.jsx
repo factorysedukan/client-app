@@ -26,11 +26,11 @@ const FactoryListing = ({ loading = false, data = [] }) => {
       <div className="card-listing2-flex-factory">
         {loading
           ? skeletonArray.map((_, idx) => (
-            <div key={idx} className="card-listing2-card wide-card">
+            <div key={idx} className="card-listing2-card wide-card-2">
               <Skeleton
                 variant="rectangular"
-                width={100}
-                height={100}
+                width={70}
+                height={70}
                 className="card-listing2-img"
                 style={{ borderRadius: 12, marginTop: 8, marginBottom: 8 }}
               />
@@ -39,7 +39,7 @@ const FactoryListing = ({ loading = false, data = [] }) => {
           ))
           : data.map(card => (
             <>
-              <div onClick={() => { handleNavigate(card) }} key={card._id || card.id} className="card-listing2-card wide-card" >
+              <div onClick={() => { handleNavigate(card) }} key={card._id || card.id} className="card-listing2-card wide-card-2" >
                 <img
                   // alt={getLocalized(card.name, card.nameHindi)}
                   className="card-listing2-img-factoy"

@@ -103,9 +103,40 @@
   margin: 0 auto;
   background: transparent;
   /* min-height: calc(100dvh - 56px); */
-  /* padding: 16px 0; */
+  /* padding: 16px 0;  */
 }
 
 .searchbarpage-result-card {
   border-radius: 12px !important;
+}
+
+/* recent chips */
+.searchbarpage-recent-chips-wrap {
+  width: 100%;
+}
+
+.searchbarpage-recent-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap; /* <- allow chips to wrap to next line */
+  align-items: center;
+  overflow-x: auto; /* keep horizontal scrolling when needed */
+  padding: 6px 4px;
+}
+
+.searchbarpage-recent-chip {
+  background: #fff;
+  border: 1px solid #ececec;
+  color: #222;
+  padding: 6px 12px;
+  border-radius: 18px;
+  font-weight: 600;
+  font-size: 0.7rem;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.searchbarpage-recent-chip:hover {
+  background: #f7f7f7;
 }

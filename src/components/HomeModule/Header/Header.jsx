@@ -12,9 +12,12 @@ const Header = () => {
                 {/* Logo + Tagline */}
                 <Box className="logo-container-with-tagline">
                     <div className="logo-container logo-animate">
-                        <span className="logo-red">{t('FACTORY')}</span>
+                        {/* <span className="logo-red">{t('FACTORY')}</span>
                         <span className="logo-green">{t('SE')}</span>
-                        <span className="logo-red">{t('DUKAN')}</span>
+                        <span className="logo-red">{t('DUKAN')}</span> */}
+                         <span className="logo-red">{t('Footwear')}</span>
+                        <span className="logo-green">{t('Mandi')}</span>
+                        {/* <span className="logo-red">{t('DUKAN')}</span> */}
                     </div>
                     <div className="header-tagline">
                         <span>By <span className="tagline-highlight">Shubham Traders</span></span>

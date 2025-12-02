@@ -15,10 +15,12 @@ import ProductListing3 from './ProductListing/ProductListing3';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { useGetAllFactoriesQuery } from '../../redux/Apis/FactoryApi';
 import FactoryListing from './FactoryListing/FactoryListing';
+import { useTranslation } from 'react-i18next';
 // import ProductListingLandscape from './ProductListing/ProductListingLandscape';
-
+import './index.css';
 
 const Home = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { data, error, isLoading } = useGetHomePageTemplateApiQuery();
   const [getProducts, { data: productData, isLoading: productDataLoading }] = useListProductsApiPaginatedMutation();
@@ -124,14 +126,22 @@ const Home = () => {
                 Total: <span style={{ color: '#22c55e', marginLeft: 4 }}>₹{formatPrice(totalPrice)}</span>
             </div> */}
 
-      <BannerSlider data={data?.data?.sliders} aspectRatio={isSmallScreen ? '16/7' : '4/1'} />
-      <Cards1 data={NavigationLinksCards1} />
+      <BannerSlider 
+        data={data?.data?.sliders} 
+        aspectRatio={isSmallScreen ? '16/8' : '4/1'} 
+        loading={isLoading}
+      />
+      
+      <h2 className='heading'>{t('Top Factories')}</h2>
       <FactoryListing loading={factoriesLoading} data={factoriesData?.data} />
-      {/* <ProductListing3 loading={productDataLoading && page==1} data={data?.data?.SixCrossSix}/> */}
-      <ProductListing1 loading={isLoading} data={data?.data?.PrimaryData} />
+      
+      <h2 className='heading'>{t('Top Products')}</h2>
 
+      <ProductListing1 loading={isLoading} data={data?.data?.PrimaryData} />
+<Cards1 data={NavigationLinksCards1} />
 
       {/* <ProductListing2 loading={isLoading} data={data?.data?.SmallSlider}/> */}
+      <h2 className='heading'>{t('All Products')}</h2>
 
       <ProductListing1 loading={productDataLoading && page == 1} data={products} />
 

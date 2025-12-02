@@ -59,13 +59,13 @@
   text-overflow: ellipsis;
 }
 
-.wide-card {
-  width: 30%;
+.wide-card-2 {
+  width: 20%;
   /* width: 2em;Increase width to fit most card names in one line */
 }
 
 @media (min-width: 600px) {
-  .wide-card {
+  .wide-card-2 {
     width: 140px;
   }
 }
