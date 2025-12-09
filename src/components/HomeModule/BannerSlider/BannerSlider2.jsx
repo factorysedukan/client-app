@@ -58,7 +58,7 @@ const BannerSlider2 = ({
   };
 
   const goToNext = () => {
-    debugger
+    
     const next = activeIndex === images.length - 1 ? 0 : activeIndex + 1;
     handleSlideChange(next, 'right');
   };

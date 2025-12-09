@@ -56,7 +56,7 @@ const LoginModel = ({ open, onClose }) => {
     }
     setError('');
     setTrigger(true);
-    debugger;
+    ;
     getCustomerData(mobile);
   };
 
