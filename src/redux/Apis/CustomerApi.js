@@ -25,7 +25,8 @@ export const customerApi = apiWithTag.injectEndpoints({
     }),
     // Get customer by mobile
     getCustomerByMobile: builder.mutation({
-      query: (mobile) => ({
+      query: (mobile) => (
+        {
         url: `${API_CONFIG.CUSTOMERS}/mobile/${mobile}`,
         method: "GET",
       }),

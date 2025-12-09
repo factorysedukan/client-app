@@ -15,14 +15,16 @@ const LoginModel = ({ open, onClose }) => {
   const [getCustomerData, { data, isLoading, error: apiError, reset }] = useGetCustomerByMobileMutation();
 
   React.useEffect(() => {
-    if (data && data.customer) {
+  console.log('data', data);
+    if (data && data?.data) {
+      
       dispatch(setUserData({
-        name: data.customer.name,
-        phone: data.customer.phone,
-        address: data.customer.address,
-        state: data.customer.state,
-        city: data.customer.city,
-        pincode: data.customer.pincode,
+        name: data?.data?.name,
+        phone: data?.data?.phone,
+        address: data?.data?.address,
+        state: data?.data?.state,
+        city: data?.data?.city,
+        pincode: data.data.pincode,
       }));
       setMobile('');
       setTouched(false);
@@ -54,6 +56,7 @@ const LoginModel = ({ open, onClose }) => {
     }
     setError('');
     setTrigger(true);
+    debugger;
     getCustomerData(mobile);
   };
 

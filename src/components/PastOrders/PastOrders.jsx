@@ -74,13 +74,15 @@ const PastOrders = () => {
       </div>
     );
   }
-
+  console.log('data', data?.data?.orders);  
   // sort orders by createdAt descending (most recent first)
-  const orders = (data?.customer?.orders || []).slice().sort((a, b) => {
+  const orders = (data?.data?.orders || []).slice().sort((a, b) => {
     const ta = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
     const tb = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
     return tb - ta;
   });
+
+  console.log('aa',orders)
 
   return (
     <div className="orderpage-bg" style={{ minHeight: '60vh', padding: '24px 0' }}>
@@ -115,6 +117,7 @@ const PastOrders = () => {
 
 // Child component to fetch and show products/articles for an order
 const OrderAccordion = ({ order, expanded, onChange }) => {
+  console.log('order', order);
   const { t } = useTranslation();
   // map status -> chip styles and label
   const getStatusProps = (status) => {
@@ -122,6 +125,11 @@ const OrderAccordion = ({ order, expanded, onChange }) => {
     switch (s) {
       case 'placed':
         return { label: 'Placed', bg: '#1e88e5', color: '#fff' };
+      case 'paymentdone':
+      case 'payment_done':
+        return { label: 'Payment Done', bg: '#10b981', color: '#fff' };
+      case 'packed':
+        return { label: 'Packed', bg: '#8b5cf6', color: '#fff' };
       case 'instransit':
       case 'intransit':
       case 'in_transit':
