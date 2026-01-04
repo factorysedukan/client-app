@@ -5,8 +5,9 @@ import { Offers } from "../constants";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const getEligibleOffer = (totalCartValue) => {
-  if (totalCartValue >= 50000) return Offers[2];
-  if (totalCartValue >= 25000) return Offers[1];
+  if (totalCartValue >= 50000) return Offers[3];
+  if (totalCartValue >= 20000) return Offers[2];
+  if (totalCartValue >= 10000) return Offers[1];
   if (totalCartValue >= 5000) return Offers[0];
   return null;
 };

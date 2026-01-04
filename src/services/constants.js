@@ -68,15 +68,22 @@ export const Offers = [
     image: 'https://res.cloudinary.com/dy6k69ynu/image/upload/v1760198278/heris_1_pt3dd0.png',
     price:5000
   },
+
   {
-    name: 'Free speaker on order above 25000',
-    nameHindi: '25000 से ऊपर के ऑर्डर पर फ्री स्पीकर',
-    image: 'https://res.cloudinary.com/dy6k69ynu/image/upload/v1760198371/heris_4_iwjrq0.png',
-    price:25000
+    name: 'Free headphones on order above 10000',
+    nameHindi: '10000 से ऊपर के ऑर्डर पर फ्री हेडफ़ोन',
+    image: 'https://res.cloudinary.com/dy6k69ynu/image/upload/v1767538167/FootwearMandi_4_w4hopm.png',
+    price:10000
+  },
+  {
+    name: 'Free speaker on order above 20000',
+    nameHindi: '20000 से ऊपर के ऑर्डर पर फ्री स्पीकर',
+    image: 'https://res.cloudinary.com/dy6k69ynu/image/upload/v1767538030/FootwearMandi_3_jn4fwh.png',
+    price:20000
   },
   {
     name: 'Free smart watch on order above 50000',
-    nameHindi: '5000 से ऊपर के ऑर्डर पर फ्री स्मार्ट वॉच',
+    nameHindi: '50000 से ऊपर के ऑर्डर पर फ्री स्मार्ट वॉच',
     image: 'https://res.cloudinary.com/dy6k69ynu/image/upload/v1760198278/heris_3_fii1p9.png',
     price:50000
   }

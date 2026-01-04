@@ -9,7 +9,7 @@ import ProductListing2 from './ProductListing/ProductListing2';
 import { useGetHomePageTemplateApiQuery } from '../../redux/Apis/HomePageTemplateApi';
 import Cards1 from './Cards/Cards1';
 import { NavigationLinksCards1 } from '../utility/config/HomepageConstants';
-import { useListProductsApiPaginatedMutation } from '../../redux/Apis/ProductApi';
+import { useListProductsApiPaginatedQQuery } from '../../redux/Apis/ProductApi';
 import SearchBar from './SearchBar/SearchBar';
 import ProductListing3 from './ProductListing/ProductListing3';
 import { useMediaQuery, useTheme } from '@mui/material';
@@ -23,7 +23,9 @@ const Home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data, error, isLoading } = useGetHomePageTemplateApiQuery();
-  const [getProducts, { data: productData, isLoading: productDataLoading }] = useListProductsApiPaginatedMutation();
+  const [page, setPage] = useState(1);
+  const { data: productData, isLoading: productDataLoading } = useListProductsApiPaginatedQQuery({ page, limit: 10 });
+
   // Get cart products and calculate total price
   const cartProducts = useSelector(state => state.cart.cartState.products);
   const formatPrice = (price) => price.toLocaleString('en-IN');
@@ -37,13 +39,10 @@ const Home = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-
-
   console.log('HomePageTemplateData', data?.data?.sliders);
 
   const ref = useRef(null)
   const skeletonArray = Array.from({ length: 2 });
-  const [page, setPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
@@ -55,19 +54,15 @@ const Home = () => {
   const { data: factoriesData, isLoading: factoriesLoading, error: factoriesError } = useGetAllFactoriesQuery();
 
   useEffect(() => {
-
-    getProducts({ page, limit: 10 })
-      .unwrap()
-      .then(res => {
-        if (page === 1) {
-          setProducts(res.data || []);
-        } else {
-          setProducts(prev => [...prev, ...(res.data || [])]);
-        }
-        setHasMore((res.data?.length || 0) === 10);
-      });
-    // eslint-disable-next-line
-  }, [page]);
+    if (productData && productData.data) {
+      if (page === 1) {
+        setProducts(productData.data || []);
+      } else {
+        setProducts(prev => [...prev, ...(productData.data || [])]);
+      }
+      setHasMore((productData.data?.length || 0) === 10);
+    }
+  }, [productData, page]);
 
   useEffect(() => {
     if (factoriesData) {
@@ -89,8 +84,6 @@ const Home = () => {
       setPage(prev => prev + 1);
     }
   };
-
-
 
   useEffect(() => {
 

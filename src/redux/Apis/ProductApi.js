@@ -21,9 +21,19 @@ export const productApi = apiWithTag.injectEndpoints({
             limit: data.limit,
           },
         };
-        
       },
-      keepUnusedDataFor: 0, // Keep data for 5 minutes
+      keepUnusedDataFor: 0, // Keep data for 0 minutes (mutation, not cached)
+      providesTags: ["Products"],
+    }),
+
+    // Query version, cached for 10 minutes (600 seconds)
+    listProductsApiPaginatedQ: builder.query({
+      query: ({ page = 1, limit = 10 }) => ({
+        url: `${API_CONFIG.GET_ALL_PRODUCTS}`,
+        method: "GET",
+        params: { page, limit },
+      }),
+      keepUnusedDataFor: 600, // 10 minutes in seconds
       providesTags: ["Products"],
     }),
 
@@ -207,12 +217,13 @@ export const productApi = apiWithTag.injectEndpoints({
 
 export const {  
     useListProductsApiPaginatedMutation,
+    useListProductsApiPaginatedQQuery,
     useCreateProductApiMutation,
     useGetProductByIDMutation,
     useUpdateProductApiMutation,
     useDeleteProductApiMutation,
     useGetProductsByFilterCategoryValueMutation,
-    useSearchProductV2Mutation, // <-- add this export
+    useSearchProductV2Mutation,
 } = productApi;
 
 /*

@@ -58,6 +58,7 @@ const ProductListing1 = forwardRef(({ loading = false, data = [] }, ref) => {
           >
             <div className="productImageContainer">
               <img
+                loading='lazy'
                 alt={getLocalized(product.name, product.nameHindi)}
                 className="product-image"
                 src={

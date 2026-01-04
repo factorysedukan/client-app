@@ -10,14 +10,17 @@ function getOfferCounts(totalPrice) {
   if (totalPrice >= 5000) {
     offers.push({ ...Offers[0], qty: 1,});
   }
-  // Speaker: One for order above 25000 up to 50000
-  if (totalPrice >= 25000 && totalPrice < 50000) {
+   if (totalPrice >= 10000 && totalPrice < 20000) {
     offers.push({ ...Offers[1], qty: 1,});
   }
-  // Watch: One for order above 50000
-  if (totalPrice >= 50000) {
-    offers.push({ ...Offers[2], qty: 1 });
+  if (totalPrice >= 20000 && totalPrice < 50000) {
+    offers.push({ ...Offers[2], qty: 1,});
   }
+  // Headphones: One for order above 10000 up to 25000
+  if (totalPrice >= 50000 ) {
+    offers.push({ ...Offers[3], qty: 1,});
+  }
+ 
   return offers;
 }
 

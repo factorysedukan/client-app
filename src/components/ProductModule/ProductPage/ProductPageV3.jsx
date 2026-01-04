@@ -242,6 +242,7 @@ const ProductPageV3 = () => {
                         title="Share"
                     >
                         <img
+                            loading='lazy'
                             src="https://cdn-icons-png.flaticon.com/512/929/929610.png"
                             alt="Share"
                             style={{ width: 20, height: 20 }}
@@ -256,6 +257,7 @@ const ProductPageV3 = () => {
                 <div style={{ display: 'flex', gap: '0.2em', boxSizing: 'border-box', padding: '0.2em', background: '#edebeb', color: 'black', margin: '1em 1em 0em 1em', borderRadius: '20px' }} className='container-scroll-focus'>
                     {/* <h3 className='product-desc-heading'>{t('Description')}</h3> */}
                     <img
+                        loading='lazy'
                         src={product?.logoImage}
                         alt={getLocalized(product?.name, product?.nameHindi)}
                         className="productpage-header-logo"
@@ -272,6 +274,7 @@ const ProductPageV3 = () => {
                             <div className="productpagev3-article-img-col">
                                 <div className="productpagev3-img-wrap">
                                     <img
+                                         loading='lazy'
                                         src={article.image}
                                         alt={getLocalized(article.name, article.nameHindi)}
                                         className="productpagev3-article-img"
@@ -430,7 +433,7 @@ const ProductPageV3 = () => {
 
                         {homeTemplateData?.data?.sliders?.[1] && (
                             <div style={{ marginTop: '1.5em', textAlign: 'center' }}>
-                                <img style={{ aspectRatio: isSmallScreen ? '16/7' : '4/1', width: '100%', objectFit: 'contain' }} src='https://res.cloudinary.com/dy6k69ynu/image/upload/v1762270953/%22factoryseDukan%22/gnhf4cykcuuatgsz6mua.jpg' />
+                                <img  loading='lazy' style={{ aspectRatio: isSmallScreen ? '16/7' : '4/1', width: '100%', objectFit: 'contain' }} src='https://res.cloudinary.com/dy6k69ynu/image/upload/v1767540239/%22factoryseDukan%22/ax8etqjvuijjf2tylp4m.png' />
                             </div>
                         )}
 
@@ -447,7 +450,7 @@ const ProductPageV3 = () => {
             {modalImg && (
                 <div className="productpagev3-modal-backdrop" onClick={handleCloseModal}>
                     <div className="productpagev3-modal-imgwrap" onClick={e => e.stopPropagation()}>
-                        <img src={modalImg} alt="zoomed" className="productpagev3-modal-img" />
+                        <img  loading='lazy' src={modalImg} alt="zoomed" className="productpagev3-modal-img" />
                         <button className="productpagev3-modal-close" onClick={handleCloseModal}>×</button>
                     </div>
                 </div>
