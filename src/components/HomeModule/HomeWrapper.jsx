@@ -218,7 +218,7 @@ const HomeWrapper = () => {
 
   
       <FooterNavigation />
-      {<NotificationsJSX />}
+      {/* {<NotificationsJSX />} */}
     </div>
   )
 }
