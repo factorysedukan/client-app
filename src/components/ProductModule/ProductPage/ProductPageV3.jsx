@@ -3,7 +3,7 @@ import ProductListing2 from '../../HomeModule/ProductListing/ProductListing2';
 import AddProductToCartModel from '../../utility/Models/AddProductToCartModel';
 import { useAddRemoveProductHook } from '../../utility/hooks/addRemovProductHook';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useGetProductByIDMutation } from '../../../redux/Apis/ProductApi';
+import { useGetProductByIDQQuery } from '../../../redux/Apis/ProductApi';
 import { useGetHomePageTemplateApiQuery } from '../../../redux/Apis/HomePageTemplateApi';
 import Skeleton from '@mui/material/Skeleton';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +19,7 @@ const ProductPageV3 = () => {
     const { t, i18n } = useTranslation();
     const params = useParams();
     const productId = params.id;
-    const [getProductById, { isLoading }] = useGetProductByIDMutation();
+    const { data: productData, isLoading, error } = useGetProductByIDQQuery(productId);
     const [product, setProduct] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
     const [openCartModel, setOpenCartModel] = useState(false);
@@ -35,23 +35,17 @@ const ProductPageV3 = () => {
 
     useEffect(() => {
         setErrorMsg(null);
-        getProductById(productId)
-            .unwrap()
-            .then(res => {
-                const p = res?.data || null;
-                if (!p) {
-                    setProduct(null);
-                    setErrorMsg(i18n?.language === 'hi' ? 'उत्पाद स्टॉक में नहीं है' : 'Product is out of stock');
-                } else {
-                    setProduct(p);
-                    setErrorMsg(null);
-                }
-            })
-            .catch(() => {
-                setProduct(null);
+        const p = productData?.data || null;
+        if (!p) {
+            setProduct(null);
+            if (error) {
                 setErrorMsg(i18n?.language === 'hi' ? 'उत्पाद स्टॉक में नहीं है' : 'Product is out of stock');
-            });
-    }, [productId, getProductById, i18n?.language]);
+            }
+        } else {
+            setProduct(p);
+            setErrorMsg(null);
+        }
+    }, [productData, error, i18n?.language]);
 
     // if product exists but has no available articles -> show out of stock
     useEffect(() => {

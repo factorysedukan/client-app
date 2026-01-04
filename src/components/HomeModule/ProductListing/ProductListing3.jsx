@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useAddRemoveProductHook } from '../../utility/hooks/addRemovProductHook';
 import { useMediaQuery, useTheme } from '@mui/material';
+import LazyImage from '../../Common/LazyImage';
 
 const ProductListing3 = ({ loading = false, data = [] }) => {
     console.log('ProductListing3 data:', data);
@@ -66,7 +67,7 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
                 className="product-listing3-card wide-card-3"
                 style={{ position: 'relative' }}
               >
-                <img
+                <LazyImage
                   alt={getLocalized(product.name, product.nameHindi)}
                   className="product-listing2-img"
                   src={

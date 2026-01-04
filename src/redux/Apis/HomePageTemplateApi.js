@@ -13,7 +13,7 @@ export const homePageTemplateApi = apiWithTag.injectEndpoints({
         url: `${API_CONFIG.HOMEPAGE_TEMPLATE}/${import.meta.env.VITE_APP_JIO_HOME_TEMPLATE_ID}`,
         method: "GET",
       }),
-      keepUnusedDataFor: 1000, // Keep data for 5 minutes
+      keepUnusedDataFor: 3600, // Keep data for 1 hour
       providesTags: ["homePageTemplate"],
     }),
 

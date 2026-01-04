@@ -190,6 +190,22 @@ export const productApi = apiWithTag.injectEndpoints({
       },
       // providesTags: ["Products"],
     }),
+
+    // Query version, cached for 10 minutes (600 seconds)
+    getProductByIDQ: builder.query({
+      query: (id) => ({
+        url: `${API_CONFIG.GET_PRODUCT_BY_ID}${id}`,
+        method: "GET",
+        headers: {
+          //   "Content-type": "application/json",
+          //   'Content-Type':
+          // 'multipart/form-data; boundary="yet another boundary"',
+        },
+      }),
+      keepUnusedDataFor: 600, // 10 minutes in seconds
+      providesTags: ["Products"],
+    }),
+
     getProductsByFilterCategoryValue: builder.mutation({
       query: ({ filterCategoryId, value,strict, page = 1, limit = 10 }) => {
         // value can be a string or array, handle accordingly
@@ -220,14 +236,10 @@ export const {
     useListProductsApiPaginatedQQuery,
     useCreateProductApiMutation,
     useGetProductByIDMutation,
+    useGetProductByIDQQuery,
     useUpdateProductApiMutation,
     useDeleteProductApiMutation,
     useGetProductsByFilterCategoryValueMutation,
     useSearchProductV2Mutation,
 } = productApi;
 
-/*
- *   Copyright (c) 2023 Jio Platforms Ltd
- *   All rights reserved.
- *   /************************************************************* * * Jio Platforms Ltd. * CONFIDENTIAL * __________________ * *  Copyright (C) 2020 Jio \n Platforms Ltd.– * *  ALL RIGHTS RESERVED. * * NOTICE:  All information \n including computer software along with source code and associated * documentation contained herein is, and remains the property of Jio Platforms Ltd..  * The intellectual and technical concepts contained herein are  proprietary to Jio Platforms Ltd. * and are protected by copyright law or as trade secret under confidentiality obligations.   * Dissemination, storage, transmission or reproduction of this information * in any part or full is strictly forbidden unless prior written  * permission along with agreement for any usage right is obtained from Jio Platforms Ltd **************************************************************
- */

@@ -7,7 +7,7 @@ import { useAddRemoveProductHook } from '../../utility/hooks/addRemovProductHook
 import AddProductToCartModel from '../../utility/Models/AddProductToCartModel';
 import { useSelector } from 'react-redux';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useListProductsApiPaginatedMutation } from '../../../redux/Apis/ProductApi';
+import { useListProductsApiPaginatedQQuery } from '../../../redux/Apis/ProductApi';
 
 const ProductListingLandscape = () => {
     const { t, i18n } = useTranslation();
@@ -15,13 +15,12 @@ const ProductListingLandscape = () => {
     const { isProductInCart } = useAddRemoveProductHook();
     const cartProducts = useSelector(state => state.cart.cartState.products);
 
-    const [getProducts, { isLoading: apiLoading }] = useListProductsApiPaginatedMutation();
-
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(1);
     const LIMIT = 10;
     const [hasMore, setHasMore] = useState(true);
     const [loadingMore, setLoadingMore] = useState(false);
+    const { data: apiData, isLoading: apiLoading } = useListProductsApiPaginatedQQuery({ page, limit: LIMIT });
 
     const [openCartModel, setOpenCartModel] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -31,23 +30,21 @@ const ProductListingLandscape = () => {
 
     const skeletonArray = Array.from({ length: 4 });
 
-    const fetchPage = useCallback(async (p) => {
-        try {
-            const res = await getProducts({ page: p, limit: LIMIT }).unwrap();
-            const resData = res?.data || [];
-            setProducts(prev => (p === 1 ? resData : [...prev, ...resData]));
-            setHasMore((resData.length || 0) === LIMIT);
-        } catch (err) {
-            // ignore
-        } finally {
-            setLoadingMore(false);
-        }
-    }, [getProducts]);
-
     useEffect(() => {
         setLoadingMore(true);
-        fetchPage(page);
-    }, [page, fetchPage]);
+    }, [page]);
+
+    useEffect(() => {
+        if (apiData && apiData.data) {
+            if (page === 1) {
+                setProducts(apiData.data || []);
+            } else {
+                setProducts(prev => [...prev, ...(apiData.data || [])]);
+            }
+            setHasMore((apiData.data?.length || 0) === LIMIT);
+        }
+        setLoadingMore(false);
+    }, [apiData, page]);
 
     // horizontal scroll handler to load next page
     useEffect(() => {

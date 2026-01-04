@@ -13,7 +13,7 @@ export const factoryApi = apiWithTag.injectEndpoints({
         url: `${API_CONFIG.FACTORY}`,
         method: "GET",
       }),
-      keepUnusedDataFor: 600, // 10 minutes in seconds
+      keepUnusedDataFor: 3000, // 10 minutes in seconds
       providesTags: ["factories"],
     }),
 

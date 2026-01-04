@@ -4,6 +4,7 @@ import Skeleton from '@mui/material/Skeleton';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import LazyImage from '../../Common/LazyImage'; // adjust path as needed
 
 const FactoryListing = ({ loading = false, data = [] }) => {
   const skeletonArray = Array.from({ length: 6 });
@@ -40,7 +41,7 @@ const FactoryListing = ({ loading = false, data = [] }) => {
           : data.map(card => (
             <>
               <div onClick={() => { handleNavigate(card) }} key={card._id || card.id} className="card-listing2-card wide-card-2" >
-                <img
+                <LazyImage
                   // alt={getLocalized(card.name, card.nameHindi)}
                   className="card-listing2-img-factoy"
                   src={
