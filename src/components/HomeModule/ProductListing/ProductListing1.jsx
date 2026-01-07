@@ -8,11 +8,13 @@ import AddProductToCartModel from '../../utility/Models/AddProductToCartModel';
 import { useSelector } from 'react-redux';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const ProductListing1 = forwardRef(({ loading = false, data = [] }, ref) => {
+const ProductListing1 = forwardRef(({ loading = false, data = [],paginationLoading=false}, ref) => {
   const { t, i18n } = useTranslation();
   const [openCartModel, setOpenCartModel] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const skeletonArray = Array.from({ length: 8 });
+  const skeletonArray2 = Array.from({ length: 2 });
+
   const products = Array.isArray(data) ? data : [];
   const { isProductInCart } = useAddRemoveProductHook();
   const cartProducts = useSelector(state => state.cart.cartState.products);
@@ -30,7 +32,7 @@ const ProductListing1 = forwardRef(({ loading = false, data = [] }, ref) => {
   const getLocalized = (en, hi) => i18n.language === 'hi' && hi ? hi : en;
 
   return (
-    <div className="product-listing-grid" ref={loading ? null : ref}>
+    <div className="product-listing-grid" ref={ref}>
       {loading
         ? skeletonArray.map((_, idx) => (
           <div key={idx} className="product-card">
@@ -161,6 +163,29 @@ const ProductListing1 = forwardRef(({ loading = false, data = [] }, ref) => {
             ) : null}
           </div>
         ))}
+
+        
+              {paginationLoading && (
+               
+                  skeletonArray2.map((_, idx) => (
+                    <div key={idx} className="product-card">
+                      <Skeleton
+                        variant="rectangular"
+                        width="100%"
+                        height={120}
+                        style={{ borderRadius: 12 }}
+                      />
+                      <div className="product-details">
+                        <Skeleton variant="text" width="70%" height={24} />
+                        <Skeleton variant="text" width="90%" height={18} />
+                        <Skeleton variant="text" width="40%" height={16} />
+                      </div>
+                    </div>
+                  ))
+               
+              )}
+
+
       <AddProductToCartModel
         open={openCartModel}
         onClose={() => setOpenCartModel(false)}
