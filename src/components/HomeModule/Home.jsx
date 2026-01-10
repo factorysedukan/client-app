@@ -194,6 +194,8 @@ const Home = () => {
       <h2 className='heading'>{t('Top Products')}</h2>
 
       <ProductListing1 loading={isLoading} data={data?.data?.PrimaryData} />
+
+      <img src={'https://res.cloudinary.com/dy6k69ynu/image/upload/v1768060518/FootwearMandi_Presentation_8_ewxfar.png'} style={{width:'100%',aspectRatio:'16/9',marginBottom:'2em',marginTop:'1em'}} />
       <Cards1 data={NavigationLinksCards1} />
 
       {/* <ProductListing2 loading={isLoading} data={data?.data?.SmallSlider}/> */}
