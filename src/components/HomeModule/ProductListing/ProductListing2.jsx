@@ -27,7 +27,7 @@ const optimizeCloudinary = (url) => {
   if (!url || !url.includes('cloudinary.com')) return url;
   return url.replace(
     '/upload/',
-    '/upload/w_150,c_limit,f_auto,q_auto:eco/'
+    '/upload/w_150,c_limit,f_auto,q_auto:good/'
   );
 };
   return (
