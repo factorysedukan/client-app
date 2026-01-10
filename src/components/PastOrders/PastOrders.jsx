@@ -168,6 +168,15 @@ const OrderAccordion = ({ order, expanded, onChange }) => {
     // eslint-disable-next-line
   }, [expanded, products]);
 
+
+
+const optimizeCloudinary = (url) => {
+  if (!url || !url.includes('cloudinary.com')) return url;
+  return url.replace(
+    '/upload/',
+    '/upload/w_150,c_limit,f_auto,q_auto:eco/'
+  );
+};
   return (
     <Accordion
       expanded={expanded}
@@ -254,7 +263,7 @@ const OrderAccordion = ({ order, expanded, onChange }) => {
               <div key={prod._id} className="orderpage-product-card animate-pop" style={{ marginBottom: 12 }}>
                 <div className="orderpage-product-header">
                   <img
-                    src={productData?.logoImage || productData?.image || null}
+                    src={optimizeCloudinary(productData?.logoImage || productData?.image || null)}
                     alt={productData?.name || ''}
                     className="orderpage-product-img"
                   />
@@ -268,7 +277,7 @@ const OrderAccordion = ({ order, expanded, onChange }) => {
                     <div key={article._id} className="orderpage-article-row animate-fadein">
                       <div className="orderpage-article-img-col">
                         <img
-                          src={article.image || null}
+                          src={optimizeCloudinary(article.image || null)}
                           alt={article.name}
                           className="orderpage-article-img"
                         />

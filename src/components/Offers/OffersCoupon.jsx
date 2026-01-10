@@ -23,7 +23,13 @@ function getOfferCounts(totalPrice) {
  
   return offers;
 }
-
+const optimizeCloudinary = (url) => {
+  if (!url || !url.includes('cloudinary.com')) return url;
+  return url.replace(
+    '/upload/',
+    '/upload/w_150,c_limit,f_auto,q_auto:eco/'
+  );
+};
 const OffersCoupon = ({ totalPrice, i18n }) => {
   const offers = getOfferCounts(totalPrice);
 
@@ -89,7 +95,7 @@ const OffersCoupon = ({ totalPrice, i18n }) => {
               }}
             />
             <img
-              src={offer.image}
+              src={optimizeCloudinary(offer.image)}
               alt={offer.name}
               style={{ width: 48, height: 48, objectFit: 'contain', marginRight: 8 }}
             />

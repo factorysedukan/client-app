@@ -8,7 +8,7 @@ import AddProductToCartModel from '../../utility/Models/AddProductToCartModel';
 import { useSelector } from 'react-redux';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const ProductListing1 = forwardRef(({ loading = false, data = [],paginationLoading=false}, ref) => {
+const ProductListing1 = forwardRef(({ loading = false, data = [], paginationLoading = false }, ref) => {
   const { t, i18n } = useTranslation();
   const [openCartModel, setOpenCartModel] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -30,7 +30,21 @@ const ProductListing1 = forwardRef(({ loading = false, data = [],paginationLoadi
 
   // Helper to get localized value
   const getLocalized = (en, hi) => i18n.language === 'hi' && hi ? hi : en;
+  const getOptimizedImage = (url) => {
+    if (!url || !url.includes('cloudinary.com')) return url;
 
+    const isMobile = window.innerWidth <= 600;
+    const isTablet = window.innerWidth <= 1024;
+
+    let width = 1200;
+    if (isMobile) width = 400;
+    else if (isTablet) width = 700;
+
+    return url.replace(
+      '/upload/',
+      `/upload/w_${width},c_limit,f_auto,q_auto/`
+    );
+  };
   return (
     <div className="product-listing-grid" ref={ref}>
       {loading
@@ -64,9 +78,11 @@ const ProductListing1 = forwardRef(({ loading = false, data = [],paginationLoadi
                 alt={getLocalized(product.name, product.nameHindi)}
                 className="product-image"
                 src={
-                  Array.isArray(product.images) && product.images.length > 0
-                    ? product.images[0]
-                    : product.logoImage || product.image || ''
+                  getOptimizedImage(
+                    Array.isArray(product.images) && product.images.length > 0
+                      ? product.images[0]
+                      : product.logoImage || product.image || ''
+                  )
                 }
               />
             </div>
@@ -115,7 +131,7 @@ const ProductListing1 = forwardRef(({ loading = false, data = [],paginationLoadi
                     ? `₹${product?.minMrp ? product?.minMrp : "--"}`
                     : `₹${product?.minMrp}-₹${product?.maxMrp}`}
                 </p>
-                <p className="product-price-MRP" style={{ color: 'rgb(135 2 2)', fontWeight: 600,fontSize:'1em' }}>
+                <p className="product-price-MRP" style={{ color: 'rgb(135 2 2)', fontWeight: 600, fontSize: '1em' }}>
                   {(() => {
                     const minMargin = product?.minMrp && product?.minPrice ? ((product.minMrp - product.minPrice) / product.minMrp) * 100 : null;
                     const maxMargin = product?.maxMrp && product?.maxPrice ? ((product.maxMrp - product.maxPrice) / product.maxMrp) * 100 : null;
@@ -132,16 +148,16 @@ const ProductListing1 = forwardRef(({ loading = false, data = [],paginationLoadi
                   {isProductInCart(product._id || product.id) == 0 ? (
                     <button className="buy-now-btn" onClick={(e) => {
                       // e.stopPropagation();
-                      
+
                       // setOpenCartModel(true);
                       // setSelectedProduct(product);
                     }}>
                       {t('Buy Now')}
                     </button>
                   ) : (
-                     <button className="edit-now-btn" onClick={(e) => {
+                    <button className="edit-now-btn" onClick={(e) => {
                       // e.stopPropagation();
-                      
+
                       // setOpenCartModel(true);
                       // setSelectedProduct(product);
                     }}>
@@ -164,26 +180,26 @@ const ProductListing1 = forwardRef(({ loading = false, data = [],paginationLoadi
           </div>
         ))}
 
-        
-              {paginationLoading && (
-               
-                  skeletonArray2.map((_, idx) => (
-                    <div key={idx} className="product-card">
-                      <Skeleton
-                        variant="rectangular"
-                        width="100%"
-                        height={120}
-                        style={{ borderRadius: 12 }}
-                      />
-                      <div className="product-details">
-                        <Skeleton variant="text" width="70%" height={24} />
-                        <Skeleton variant="text" width="90%" height={18} />
-                        <Skeleton variant="text" width="40%" height={16} />
-                      </div>
-                    </div>
-                  ))
-               
-              )}
+
+      {paginationLoading && (
+
+        skeletonArray2.map((_, idx) => (
+          <div key={idx} className="product-card">
+            <Skeleton
+              variant="rectangular"
+              width="100%"
+              height={120}
+              style={{ borderRadius: 12 }}
+            />
+            <div className="product-details">
+              <Skeleton variant="text" width="70%" height={24} />
+              <Skeleton variant="text" width="90%" height={18} />
+              <Skeleton variant="text" width="40%" height={16} />
+            </div>
+          </div>
+        ))
+
+      )}
 
 
       <AddProductToCartModel

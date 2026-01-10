@@ -58,6 +58,14 @@ const OrderPage = () => {
         }
     };
 
+    const optimizeCloudinary = (url) => {
+        if (!url || !url.includes('cloudinary.com')) return url;
+        return url.replace(
+            '/upload/',
+            '/upload/w_150,c_limit,f_auto,q_auto:eco/'
+        );
+    };
+
     // Minimum order value
     const MIN_ORDER_VALUE = 0;
 
@@ -121,7 +129,7 @@ const OrderPage = () => {
                                     <div key={product._id} className="orderpage-product-card animate-pop">
                                         <div className="orderpage-product-header">
                                             <img
-                                                src={product.logoImage || product.image || ''}
+                                                src={optimizeCloudinary(product.logoImage || product.image || '')}
                                                 alt={i18n.language === 'hi' && product.nameHindi ? product.nameHindi : product.name}
                                                 className="orderpage-product-img"
                                             />
@@ -137,7 +145,7 @@ const OrderPage = () => {
                                                 <div key={article._id} className="orderpage-article-row animate-fadein">
                                                     <div className="orderpage-article-img-col">
                                                         <img
-                                                            src={article.image || ''}
+                                                            src={optimizeCloudinary(article.image || '')}
                                                             alt={i18n.language === 'hi' && article.nameHindi ? article.nameHindi : article.name}
                                                             className="orderpage-article-img"
                                                         />
@@ -160,54 +168,54 @@ const OrderPage = () => {
                                                     </div>
                                                     <div className="orderpage-qty-controls">
                                                         <div className="orderpage-qty-btn-group">
-                                                        <button
-                                                            className="orderpage-qty-btn"
-                                                            onClick={() => handleQtyChange(product._id, article._id, -1, article.minUnits)}
-                                                            disabled={article.orderQty <= 0}
-                                                            style={{
-                                                                background: article.orderQty <= 0 ? '#e5e7eb' : '#e4572e',
-                                                                color: article.orderQty <= 0 ? '#aaa' : '#fff',
-                                                                cursor: article.orderQty <= 0 ? 'not-allowed' : 'pointer',
-                                                                border: 'none',
-                                                                borderRadius: 8,
-                                                                width: 32,
-                                                                height: 32,
-                                                                fontWeight: 700,
-                                                                fontSize: '1.2em',
-                                                                transition: 'background 0.2s'
-                                                            }}
-                                                        >
-                                                            <RemoveIcon fontSize="small" />
-                                                        </button>
-                                                        <span className="orderpage-qty-value">{article.orderQty}</span>
-                                                        <button
-                                                            className="orderpage-qty-btn"
-                                                            onClick={() => handleQtyChange(product._id, article._id, 1, article.minUnits)}
-                                                            disabled={article.orderQty >= (article.qty ?? 0)}
-                                                            style={{
-                                                                background: article.orderQty >= (article.qty ?? 0) ? '#e5e7eb' : '#e4572e',
-                                                                color: article.orderQty >= (article.qty ?? 0) ? '#aaa' : '#fff',
-                                                                cursor: article.orderQty >= (article.qty ?? 0) ? 'not-allowed' : 'pointer',
-                                                                border: 'none',
-                                                                borderRadius: 8,
-                                                                width: 32,
-                                                                height: 32,
-                                                                fontWeight: 700,
-                                                                fontSize: '1.2em',
-                                                                transition: 'background 0.2s'
-                                                            }}
-                                                        >
-                                                            <AddIcon fontSize="small" />
-                                                        </button>
+                                                            <button
+                                                                className="orderpage-qty-btn"
+                                                                onClick={() => handleQtyChange(product._id, article._id, -1, article.minUnits)}
+                                                                disabled={article.orderQty <= 0}
+                                                                style={{
+                                                                    background: article.orderQty <= 0 ? '#e5e7eb' : '#e4572e',
+                                                                    color: article.orderQty <= 0 ? '#aaa' : '#fff',
+                                                                    cursor: article.orderQty <= 0 ? 'not-allowed' : 'pointer',
+                                                                    border: 'none',
+                                                                    borderRadius: 8,
+                                                                    width: 32,
+                                                                    height: 32,
+                                                                    fontWeight: 700,
+                                                                    fontSize: '1.2em',
+                                                                    transition: 'background 0.2s'
+                                                                }}
+                                                            >
+                                                                <RemoveIcon fontSize="small" />
+                                                            </button>
+                                                            <span className="orderpage-qty-value">{article.orderQty}</span>
+                                                            <button
+                                                                className="orderpage-qty-btn"
+                                                                onClick={() => handleQtyChange(product._id, article._id, 1, article.minUnits)}
+                                                                disabled={article.orderQty >= (article.qty ?? 0)}
+                                                                style={{
+                                                                    background: article.orderQty >= (article.qty ?? 0) ? '#e5e7eb' : '#e4572e',
+                                                                    color: article.orderQty >= (article.qty ?? 0) ? '#aaa' : '#fff',
+                                                                    cursor: article.orderQty >= (article.qty ?? 0) ? 'not-allowed' : 'pointer',
+                                                                    border: 'none',
+                                                                    borderRadius: 8,
+                                                                    width: 32,
+                                                                    height: 32,
+                                                                    fontWeight: 700,
+                                                                    fontSize: '1.2em',
+                                                                    transition: 'background 0.2s'
+                                                                }}
+                                                            >
+                                                                <AddIcon fontSize="small" />
+                                                            </button>
                                                         </div>
-                                                         {/* {article.orderQty >= (article.qty ?? 0) && (article.qty ?? 0) > 0 && (
+                                                        {/* {article.orderQty >= (article.qty ?? 0) && (article.qty ?? 0) > 0 && (
                                                         <div style={{ color: '#e4572e', fontSize: '0.65em', marginLeft: 12, fontWeight: 700 }}>
                                             {i18n?.language === 'hi' ? 'इस आर्टिकल का स्टॉक पूरा हो चुका है — अब और आइटम नहीं जोड़े जा सकते।' : 'Stock for this article is full — no more items can be added.'}
                                                            
                                                         </div>
                                                     )} */}
                                                     </div>
-                                                   
+
                                                 </div>
                                             ))}
                                         </div>

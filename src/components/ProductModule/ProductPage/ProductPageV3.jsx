@@ -122,6 +122,14 @@ const ProductPageV3 = () => {
         }
     };
 
+    const optimizeCloudinary = (url, width, quality = 'eco') => {
+        if (!url || !url.includes('cloudinary.com')) return url;
+        return url.replace(
+            '/upload/',
+            `/upload/w_${width},c_limit,f_auto,q_auto:${quality}/`
+        );
+    };
+
     if (isLoading) {
         return (
             <div className="productpage-bg animate-fadein">
@@ -161,9 +169,9 @@ const ProductPageV3 = () => {
                     <div className="productpage-footer productpage-footer-v2">
 
                         <div className="productpage-section">
-                             <BannerSlider data={homeTemplateData?.data?.sliders} aspectRatio={isSmallScreen ? '16/7' : '4/1'} />
+                            <BannerSlider data={homeTemplateData?.data?.sliders} aspectRatio={isSmallScreen ? '16/7' : '4/1'} />
                             <h2 className="productpage-section-title">{t('Top Products')}</h2>
-                           
+
 
                             <ProductListing2
                                 loading={isHomeLoading}
@@ -176,7 +184,7 @@ const ProductPageV3 = () => {
                             />
 
 
-                         
+
 
                         </div>
                     </div>
@@ -252,7 +260,7 @@ const ProductPageV3 = () => {
                     {/* <h3 className='product-desc-heading'>{t('Description')}</h3> */}
                     <img
                         loading='lazy'
-                        src={product?.logoImage}
+                        src={optimizeCloudinary(product?.logoImage, 200)}
                         alt={getLocalized(product?.name, product?.nameHindi)}
                         className="productpage-header-logo"
                     />
@@ -268,8 +276,8 @@ const ProductPageV3 = () => {
                             <div className="productpagev3-article-img-col">
                                 <div className="productpagev3-img-wrap">
                                     <img
-                                         loading='lazy'
-                                        src={article.image}
+                                        loading='lazy'
+                                        src={optimizeCloudinary(article.image, 400)}
                                         alt={getLocalized(article.name, article.nameHindi)}
                                         className="productpagev3-article-img"
                                         onClick={() => handleOpenModal(article.image)}
@@ -409,7 +417,7 @@ const ProductPageV3 = () => {
                             </div>
                         </div>
                     ))}
-                <div className="productpage-footer productpage-footer-v2" style={{padding:'0em'}}>
+                <div className="productpage-footer productpage-footer-v2" style={{ padding: '0em' }}>
                     <h3 className='product-desc-heading'>{t('Description')}</h3>
                     <p className='product-desc'>{getLocalized(product?.description, product?.descriptionHindi)}</p>
                     <div className="productpage-section">
@@ -427,7 +435,13 @@ const ProductPageV3 = () => {
 
                         {homeTemplateData?.data?.sliders?.[1] && (
                             <div style={{ marginTop: '1.5em', textAlign: 'center' }}>
-                                <img  loading='lazy' style={{ aspectRatio: isSmallScreen ? '16/7' : '4/1', width: '100%', objectFit: 'contain' }} src='https://res.cloudinary.com/dy6k69ynu/image/upload/v1767540239/%22factoryseDukan%22/ax8etqjvuijjf2tylp4m.png' />
+                                <img loading='lazy' style={{ aspectRatio: isSmallScreen ? '16/7' : '4/1', width: '100%', objectFit: 'contain' }}
+                                    src={optimizeCloudinary(
+                                        'https://res.cloudinary.com/dy6k69ynu/image/upload/v1767540239/%22factoryseDukan%22/ax8etqjvuijjf2tylp4m.png',
+                                        isSmallScreen ? 700 : 1400,
+                                        'good'
+                                    )}
+                                />
                             </div>
                         )}
 
@@ -444,7 +458,7 @@ const ProductPageV3 = () => {
             {modalImg && (
                 <div className="productpagev3-modal-backdrop" onClick={handleCloseModal}>
                     <div className="productpagev3-modal-imgwrap" onClick={e => e.stopPropagation()}>
-                        <img  loading='lazy' src={modalImg} alt="zoomed" className="productpagev3-modal-img" />
+                        <img loading='lazy' src={optimizeCloudinary(modalImg, 1200, 'good')} alt="zoomed" className="productpagev3-modal-img" />
                         <button className="productpagev3-modal-close" onClick={handleCloseModal}>×</button>
                     </div>
                 </div>

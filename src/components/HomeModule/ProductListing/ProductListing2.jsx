@@ -23,6 +23,13 @@ const ProductListing2 = ({ loading = false, data = [] }) => {
   // Helper to get localized value
   const getLocalized = (en, hi) => i18n.language === 'hi' && hi ? hi : en;
 
+const optimizeCloudinary = (url) => {
+  if (!url || !url.includes('cloudinary.com')) return url;
+  return url.replace(
+    '/upload/',
+    '/upload/w_150,c_limit,f_auto,q_auto:eco/'
+  );
+};
   return (
     <div className="product-listing2-bg">
       <div className="product-listing2-scroll">
@@ -66,9 +73,11 @@ const ProductListing2 = ({ loading = false, data = [] }) => {
                     alt={getLocalized(product.name, product.nameHindi)}
                     className="product-listing2-img-2"
                     src={
-                      Array.isArray(product.images) && product.images.length > 0
-                        ? product.images[0]
-                        : product.logoImage || product.image || ''
+                      optimizeCloudinary(
+                        Array.isArray(product.images) && product.images.length > 0
+                          ? product.images[0]
+                          : product.logoImage || product.image || ''
+                      )
                     }
                   />
                   <div className="product-listing2-info">

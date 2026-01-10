@@ -30,6 +30,15 @@ const ProductListingLandscape = () => {
 
     const skeletonArray = Array.from({ length: 4 });
 
+
+    const optimizeCloudinary = (url) => {
+        if (!url || !url.includes('cloudinary.com')) return url;
+        return url.replace(
+            '/upload/',
+            '/upload/w_150,c_limit,f_auto,q_auto:eco/'
+        );
+    };
+
     useEffect(() => {
         setLoadingMore(true);
     }, [page]);
@@ -109,7 +118,7 @@ const ProductListingLandscape = () => {
                                 <img
                                     alt={getLocalized(product.name, product.nameHindi)}
                                     className="product-image"
-                                    src={Array.isArray(product.images) && product.images.length > 0 ? product.images[0] : product.logoImage || product.image || ''}
+                                    src={optimizeCloudinary(Array.isArray(product.images) && product.images.length > 0 ? product.images[0] : product.logoImage || product.image || '')}
                                 />
                             </div>
 
@@ -131,18 +140,18 @@ const ProductListingLandscape = () => {
                                     </p>
                                     <div className="product-qty">
                                         {isProductInCart(product._id || product.id) == 0 ? (
-                                            <button className="buy-now-btn" 
-                                            
-                                            
+                                            <button className="buy-now-btn"
+
+
                                             // onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); setOpenCartModel(true); }}
-                                            
+
                                             >
                                                 {t('Buy Now')}
                                             </button>
                                         ) : (
-                                            <button className="edit-now-btn" 
+                                            <button className="edit-now-btn"
                                             // onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); setOpenCartModel(true); }}
-                                            
+
                                             >
                                                 {t('Change Quantity')}
                                             </button>
