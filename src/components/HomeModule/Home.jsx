@@ -1,5 +1,5 @@
 import { Card, CardActionArea, CardContent, Skeleton, Typography } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -9,7 +9,7 @@ import ProductListing2 from './ProductListing/ProductListing2';
 import { useGetHomePageTemplateApiQuery } from '../../redux/Apis/HomePageTemplateApi';
 import Cards1 from './Cards/Cards1';
 import { NavigationLinksCards1 } from '../utility/config/HomepageConstants';
-import { useListProductsApiPaginatedMutation } from '../../redux/Apis/ProductApi';
+import { useListProductsApiPaginatedMutation, useListProductsApiPaginatedQQuery } from '../../redux/Apis/ProductApi';
 import SearchBar from './SearchBar/SearchBar';
 import ProductListing3 from './ProductListing/ProductListing3';
 import { useMediaQuery, useTheme } from '@mui/material';
@@ -23,7 +23,7 @@ const Home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { data, error, isLoading } = useGetHomePageTemplateApiQuery();
-  const [getProducts, { data: productData, isLoading: productDataLoading }] = useListProductsApiPaginatedMutation();
+  
   // Get cart products and calculate total price
   const cartProducts = useSelector(state => state.cart.cartState.products);
   const formatPrice = (price) => price.toLocaleString('en-IN');
@@ -47,27 +47,24 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
-  const images = [
-    'https://res.cloudinary.com/dd57quwk7/image/upload/v1752317190/factorySeDukanSlider/ChatGPT_Image_Jul_12_2025_04_10_40_PM_bpttih.png',
-    'https://res.cloudinary.com/dd57quwk7/image/upload/v1752318632/factorySeDukanSlider/ChatGPT_Image_Jul_12_2025_04_31_32_PM_bs1anm.png'
-  ]
+  const { data: productData, isLoading: productDataLoading,isFetching } = useListProductsApiPaginatedQQuery({ page, limit: 10 });
 
   const { data: factoriesData, isLoading: factoriesLoading, error: factoriesError } = useGetAllFactoriesQuery();
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    getProducts({ page, limit: 10 })
-      .unwrap()
-      .then(res => {
-        if (page === 1) {
-          setProducts(res.data || []);
-        } else {
-          setProducts(prev => [...prev, ...(res.data || [])]);
-        }
-        setHasMore((res.data?.length || 0) === 10);
-      });
-    // eslint-disable-next-line
-  }, [page]);
+  //   getProducts({ page, limit: 10 })
+  //     .unwrap()
+  //     .then(res => {
+  //       if (page === 1) {
+  //         setProducts(res.data || []);
+  //       } else {
+  //         setProducts(prev => [...prev, ...(res.data || [])]);
+  //       }
+  //       setHasMore((res.data?.length || 0) === 10);
+  //     });
+  //   // eslint-disable-next-line
+  // }, [page]);
 
   useEffect(() => {
     if (factoriesData) {
@@ -76,34 +73,93 @@ const Home = () => {
     }
   }, [factoriesData]);
 
-  const handleScroll = () => {
+  // const handleScroll = () => {
 
-    if (!hasMore || productDataLoading) return;
-    console.log('running')
-    console.log('Scroll event triggered', ref.current.clientHeight, ref.current.scrollTop, ref.current.scrollHeight);
-    if (
+  //   if (!hasMore || productDataLoading) return;
+  //   console.log('running')
+  //   console.log('Scroll event triggered', ref.current.clientHeight, ref.current.scrollTop, ref.current.scrollHeight);
+  //   if (
 
-      ref.current.clientHeight + ref.current.scrollTop >= ref.current.scrollHeight - 200
-    ) {
+  //     ref.current.clientHeight + ref.current.scrollTop >= ref.current.scrollHeight - 200
+  //   ) {
 
-      setPage(prev => prev + 1);
-    }
-  };
+  //     setPage(prev => prev + 1);
+  //   }
+  // };
 
 
+
+  // useEffect(() => {
+
+  //   if (ref.current) {
+  //     ref.current.addEventListener('scroll', handleScroll);
+  //   }
+
+  //   return () => {
+  //     if (ref.current) {
+  //       ref.current.removeEventListener('scroll', handleScroll);
+  //     }
+  //   }
+  // }, [handleScroll, ref]);
+
+
+
+
+
+
+
+  // const { data, isFetching } =
+  //   useListProductsApiPaginatedQQuery();
+
+  const observerRef = useRef(null);
+  const lastItemRef = useRef(null);
 
   useEffect(() => {
-
-    if (ref.current) {
-      ref.current.addEventListener('scroll', handleScroll);
+    if (!productData?.data) return;
+    if(productData?.pagination?.page<page){
+      return
     }
+    setProducts(prev =>
+      page === 1 ? productData.data : [...prev, ...productData.data]
+    );
 
-    return () => {
-      if (ref.current) {
-        ref.current.removeEventListener('scroll', handleScroll);
-      }
+    setHasMore(productData.data.length === 10);
+  }, [productData, page]);
+
+  const observeLastItem = useCallback(
+    node => {
+      console.log('hasMore',hasMore,page)
+      if (isFetching || !hasMore) {
+        observerRef.current.disconnect();
+        return
+      };
+
+      if (observerRef.current) observerRef.current.disconnect();
+
+      observerRef.current = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting) {
+            observerRef.current.disconnect(); 
+            setPage(prev => prev + 1);
+          }
+        },
+        {
+          root: null,
+          rootMargin: isSmallScreen ? '300px' : '700px', // desktop/tablet safe
+          threshold: 0.01,
+        }
+      );
+
+      if (node) observerRef.current.observe(node);
+    },
+    [isFetching, hasMore, isSmallScreen]
+  );
+
+  useEffect(() => {
+    if (lastItemRef.current && hasMore) {
+      observeLastItem(lastItemRef.current);
     }
-  }, [handleScroll, ref]);
+  }, [products, observeLastItem,hasMore]);
   return (
     <div ref={ref} style={{ height: '100%', display: 'flex', width: '100%', flexDirection: 'column', justifyContent: 'flex-start', overflowX: 'hidden', overflowY: 'scroll' }}>
       {/* Total Price Row */}
@@ -126,25 +182,30 @@ const Home = () => {
                 Total: <span style={{ color: '#22c55e', marginLeft: 4 }}>₹{formatPrice(totalPrice)}</span>
             </div> */}
 
-      <BannerSlider 
-        data={data?.data?.sliders} 
-        aspectRatio={isSmallScreen ? '16/8' : '4/1'} 
+      <BannerSlider
+        data={data?.data?.sliders}
+        aspectRatio={isSmallScreen ? '16/8' : '4/1'}
         loading={isLoading}
       />
-      
+
       <h2 className='heading'>{t('Top Factories')}</h2>
       <FactoryListing loading={factoriesLoading} data={factoriesData?.data} />
-      
+
       <h2 className='heading'>{t('Top Products')}</h2>
 
       <ProductListing1 loading={isLoading} data={data?.data?.PrimaryData} />
-<Cards1 data={NavigationLinksCards1} />
+      <Cards1 data={NavigationLinksCards1} />
 
       {/* <ProductListing2 loading={isLoading} data={data?.data?.SmallSlider}/> */}
       <h2 className='heading'>{t('All Products')}</h2>
 
-      <ProductListing1 loading={productDataLoading && page == 1} data={products} />
-
+      {/* <ProductListing1 loading={productDataLoading && page == 1} data={products} /> */}
+      <ProductListing1
+        data={products}
+        loading={page === 1 && isFetching}
+        paginationLoading={page > 1 && isFetching}
+        lastItemRef={lastItemRef} // 👈 PASS REF
+      />
       {productDataLoading && page > 1 && (
         <div className="product-listing-grid" >
           {skeletonArray.map((_, idx) => (
