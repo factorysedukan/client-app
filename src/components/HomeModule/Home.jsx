@@ -42,7 +42,7 @@ const Home = () => {
   console.log('HomePageTemplateData', data?.data?.sliders);
 
   const ref = useRef(null)
-  const skeletonArray = Array.from({ length: 2 });
+  const skeletonArray = Array.from({ length: isSmallScreen ? 2 :8});
   const [page, setPage] = useState(1);
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
