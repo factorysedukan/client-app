@@ -184,13 +184,14 @@ const Home = () => {
 
       <BannerSlider
         data={data?.data?.sliders}
-        aspectRatio={isSmallScreen ? '16/8' : '4/1'}
+        aspectRatio={isSmallScreen ? '16/8' : '4/1.7'}
         loading={isLoading}
       />
 
       <h2 className='heading'>{t('Top Factories')}</h2>
       <FactoryListing loading={factoriesLoading} data={factoriesData?.data} />
-      <img src={'https://res.cloudinary.com/dy6k69ynu/image/upload/v1768060518/FootwearMandi_Presentation_8_ewxfar.png'} style={{width:'100%',aspectRatio:'16/9',marginBottom:'2em',marginTop:'1em'}} />
+      {isSmallScreen && ( <img src={'https://res.cloudinary.com/dy6k69ynu/image/upload/v1768060518/FootwearMandi_Presentation_8_ewxfar.png'} style={{width:'100%',aspectRatio:'16/9',marginBottom:'2em',marginTop:'1em'}} />)}
+     
 
       <h2 className='heading'>{t('Top Products')}</h2>
 

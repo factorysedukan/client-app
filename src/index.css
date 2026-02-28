@@ -21,3 +21,17 @@ body {
   overflow: hidden;
   background-color: #f5f5f5; /* Light background */
 }
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* Hide scrollbar for Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for IE & old Edge */
+* {
+  -ms-overflow-style: none;
+}
